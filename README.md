@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Deferment Application System is a comprehensive solution developed as a part of the Master of Software Engineering program at [University Name]. It aims to streamline the process of applying for academic deferment, providing a user-friendly interface for students and a robust backend for coordinators, supervisors, and office assistants. This system addresses the need for efficient handling of deferment requests, tracking, and management within academic institutions.
+The Deferment Application System is a comprehensive solution developed as a part of the Master of Software Engineering program at UTM. It aims to streamline the process of applying for academic deferment, providing a user-friendly interface for students and a robust backend for coordinators, supervisors, and office assistants. This system addresses the need for efficient handling of deferment requests, tracking, and management within academic institutions.
 
 ## Features
 
