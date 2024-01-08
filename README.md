@@ -19,8 +19,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-- PHP >= 7.3
-- Laravel 8.x
+- PHP >= 8.1
+- Laravel 10.x
 - MySQL or another compatible database system (SQLite)
 - Composer for managing PHP dependencies
 
