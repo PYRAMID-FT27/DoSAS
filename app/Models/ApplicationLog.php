@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class ApplicationLog extends Model
 {
     use HasFactory;
+    protected $fillable=[
+        'application_id',
+        'changed_by',
+        'changed_at',
+        'previous_status',
+        'new_status',
+        'remarks',
+        'action_type',
+    ];
 }

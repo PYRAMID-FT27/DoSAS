@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->string('path');
             $table->text('description')->nullable();
-            $table->dateTime('uploaded_at');
             $table->timestamps();
         });
     }

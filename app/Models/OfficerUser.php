@@ -12,7 +12,7 @@ class OfficerUser extends User
         parent::boot();
 
         static::addGlobalScope('role', function (Builder $builder) {
-            $builder->where('role',  'supervisor');
+            $builder->where('role',  'officer');
         });
     }
 
