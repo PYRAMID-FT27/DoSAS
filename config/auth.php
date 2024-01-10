@@ -60,9 +60,21 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'student' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\StudentUser::class,
+        ],
+        'coordinator' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Coordinator::class,
+        ],
+        'supervisor' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\SupervisorUser::class,
+        ],
+        'officer' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\OfficerUser::class,
         ],
 
         // 'users' => [
