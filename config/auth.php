@@ -38,7 +38,19 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'student',
+        ],
+        'coordinator' => [
+            'driver' => 'session',
+            'provider' => 'coordinator',
+        ],
+        'assistant' => [
+            'driver' => 'session',
+            'provider' => 'officer',
+        ],
+        'supervisor' => [
+            'driver' => 'session',
+            'provider' => 'supervisor',
         ],
     ],
 
@@ -104,7 +116,7 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'users',
+            'provider' => 'student',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
