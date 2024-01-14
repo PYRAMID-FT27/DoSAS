@@ -40,17 +40,13 @@ return [
             'driver' => 'session',
             'provider' => 'student',
         ],
-        'coordinator' => [
+        'faculty' => [
             'driver' => 'session',
-            'provider' => 'coordinator',
+            'provider' => 'faculty',
         ],
-        'assistant' => [
+        'staff' => [
             'driver' => 'session',
-            'provider' => 'officer',
-        ],
-        'supervisor' => [
-            'driver' => 'session',
-            'provider' => 'supervisor',
+            'provider' => 'staff',
         ],
     ],
 
@@ -75,17 +71,14 @@ return [
         'student' => [
             'driver' => 'eloquent',
             'model' => App\Models\StudentUser::class,
-            'metric_no' =>'metric_no'
         ],
         'faculty' => [
             'driver' => 'eloquent',
             'model' => App\Models\FacultyUser::class,
-            'metric_no' =>'metric_no'
         ],
         'staff' => [
             'driver' => 'eloquent',
             'model' => App\Models\Staff::class,
-            'metric_no' =>'metric_no'
         ],
         // 'users' => [
         //     'driver' => 'database',

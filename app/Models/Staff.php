@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Staff extends User
 {
+    protected $table='users';
     public static function boot() {
         parent::boot();
         static::addGlobalScope('role', function (Builder $builder) {
