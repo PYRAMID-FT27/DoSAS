@@ -19,7 +19,7 @@ class StudentFactory extends Factory
     {
         return [
             'ic' => $this->generatePassport(),
-            'nationality'=>fake()->company,
+            'nationality'=>fake()->country,
             'program_code'=> fake()->randomElement(['PRTG','MANPA1CKA']),
             'user_id'=> User::factory()->create(['role'=>'student'])->id
         ];
@@ -27,6 +27,6 @@ class StudentFactory extends Factory
 
     protected function generatePassport()
     {
-        return sprintf('%08d', fake()->unique()->numberBetween(1, 9999999));
+        return sprintf('%8d', fake()->unique()->numberBetween(1, 9999999));
     }
 }
