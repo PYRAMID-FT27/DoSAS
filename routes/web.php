@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth:faculty,web,staff'])->name('dashboard');
+})->middleware(['auth:faculty,web,staff','is_first_login'])->name('dashboard');
 
 Route::middleware('auth:faculty,web,staff')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

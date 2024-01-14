@@ -24,6 +24,7 @@ class User extends Authenticatable
         'metric_no',
         'role',
         'phone_number',
+        'first_login_at',
     ];
 
     /**
@@ -46,4 +47,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+
+    public function isFirstLogin()
+    {
+       return empty($this->first_login_at);
+    }
 }
