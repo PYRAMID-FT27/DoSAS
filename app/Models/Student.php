@@ -13,6 +13,5 @@ class Student extends Model
         'ic',
         'nationality',
         'program_code',
-        'metric_no',
     ];
 }

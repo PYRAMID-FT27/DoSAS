@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use http\Exception\InvalidArgumentException;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -27,9 +28,20 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'metric_no' => $this->generateMatric(),
+            'role' => fake()->randomElement(['faculty', 'student', 'assistant']),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'phone_number' => fake()->phoneNumber()
         ];
+    }
+
+
+    protected function generateMatric()
+    {
+        $prefixes = ['PAN', 'MAN'];
+        $prefix = fake()->randomElement($prefixes);
+        return sprintf('%s%s%03d', $prefix, date('y'), fake()->unique()->numberBetween(1, 9999));
     }
 
     /**
