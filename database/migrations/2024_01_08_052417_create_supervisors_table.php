@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('supervisors', function (Blueprint $table) {
             $table->id();
             $table->string('phone_number')->unique()->index();
-            $table->string('emp_id')->unique()->index();
             $table->string('department')->nullable();
             $table->string('title')->nullable();
             $table->text('research_interests')->nullable();

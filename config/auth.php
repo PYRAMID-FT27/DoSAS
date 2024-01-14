@@ -75,20 +75,18 @@ return [
         'student' => [
             'driver' => 'eloquent',
             'model' => App\Models\StudentUser::class,
+            'metric_no' =>'metric_no'
         ],
-        'coordinator' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Coordinator::class,
-        ],
-        'supervisor' => [
+        'faculty' => [
             'driver' => 'eloquent',
             'model' => App\Models\FacultyUser::class,
+            'metric_no' =>'metric_no'
         ],
-        'officer' => [
+        'staff' => [
             'driver' => 'eloquent',
-            'model' => App\Models\OfficerUser::class,
+            'model' => App\Models\Staff::class,
+            'metric_no' =>'metric_no'
         ],
-
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

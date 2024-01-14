@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('ic')->index()->unique();
             $table->string('nationality')->index()->unique();
             $table->string('program_code')->index()->unique();
-            $table->string('metric_no')->index()->unique();
             $table->timestamps();
         });
     }
