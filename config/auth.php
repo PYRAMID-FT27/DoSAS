@@ -82,7 +82,7 @@ return [
         ],
         'supervisor' => [
             'driver' => 'eloquent',
-            'model' => App\Models\SupervisorUser::class,
+            'model' => App\Models\FacultyUser::class,
         ],
         'officer' => [
             'driver' => 'eloquent',
