@@ -15,6 +15,6 @@ class AskChangePasswordMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-       return auth()->user()->isFirstLogin()? redirect()->route('profile.update'):$next($request);
+       return auth()?->user()?->isFirstLogin()? redirect()->route('profile.update'):$next($request);
     }
 }
