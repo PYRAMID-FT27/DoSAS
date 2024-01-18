@@ -22,11 +22,10 @@ class DefermentApplicationFactory extends Factory
         return [
             'student_id' => Student::factory()->create()->id,
             'Status' => $status,
-            'submitted_at'=> $status=='draft'?null:fake()->time(),
-            'semester'=>fake()->randomElement(['2022/2023-2','2022/2023-1','2023/2024-1','2023/2024-2']),
-            'type' =>fake()->randomElement(['academic','personal','medical','other']),
-            'details'=> fake()->paragraphs(4),
-            'notes',
+            'submitted_at' => $status == 'draft' ? null : fake()->time(),
+            'semester' => fake()->randomElement(['2022/2023-2', '2022/2023-1', '2023/2024-1', '2023/2024-2']),
+            'type' => fake()->randomElement(['academic', 'personal', 'medical', 'other']),
+            'details' => fake()->paragraph,
         ];
     }
 }

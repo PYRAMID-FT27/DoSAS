@@ -19,9 +19,9 @@ class StudentFactory extends Factory
     {
         return [
             'ic' => $this->generatePassport(),
-            'nationality'=>fake()->country,
-            'program_code'=> fake()->randomElement(['PRTG','MANPA1CKA']),
-            'user_id'=> User::factory()->create(['role'=>'student'])->id
+            'nationality' => fake()->country,
+            'program_code' => fake()->randomElement(['PRTG', 'MANPA1CKA']),
+            'user_id' => User::factory()->create(['role' => 'student'])->id
         ];
     }
 
