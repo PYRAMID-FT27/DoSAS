@@ -52,4 +52,21 @@ class User extends Authenticatable
     {
        return empty($this->first_login_at);
     }
+
+    public function student()
+    {
+        $this->hasOne(Student::class);
+    }
+    public function supervisor()
+    {
+        $this->hasOne(Supervisor::class);
+    }
+
+    public function meta()
+    {
+        if ($this->role =='student') return $this->load('student');
+        if ($this->role =='faculty') return $this->load('supervisor');
+        return null;
+    }
+
 }
