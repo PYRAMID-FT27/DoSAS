@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('application_id')->constrained('deferment_applications')->onDelete('cascade');
             $table->foreignId('changed_by')->constrained('users')->onDelete('set null');
             $table->dateTime('changed_at');
-            $table->string('previous_status');
-            $table->string('new_status');
+            $table->enum('previous_status',['rejected','approved','reviewing','process','draft','pending']);
+            $table->string('new_status',['rejected','approved','reviewing','process','draft','pending']);
             $table->text('remarks')->nullable();
             $table->string('action_type')->nullable();
             $table->timestamps();

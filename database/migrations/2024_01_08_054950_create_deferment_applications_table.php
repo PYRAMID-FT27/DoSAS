@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained('students');
             $table->string('Status',['rejected','approved','reviewing','process','draft','pending']);
-            $table->dateTime('submitted_at');
+            $table->dateTime('submitted_at')->nullable();
             $table->string('semester');
             $table->enum('type',['academic','personal','medical','other']);
             $table->text('details');
