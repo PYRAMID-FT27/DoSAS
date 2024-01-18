@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DefermentApplication extends Model
 {
@@ -17,4 +18,14 @@ class DefermentApplication extends Model
         'details',
         'notes',
     ];
+
+    public function applicationLog(): HasMany
+    {
+        return $this->hasMany(ApplicationLog::class);
+    }
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
 }

@@ -17,4 +17,9 @@ class ApplicationLog extends Model
         'remarks',
         'action_type',
     ];
+
+    public function DefermentApplication()
+    {
+      return $this->belongsTo(DefermentApplication::class);
+    }
 }

@@ -15,4 +15,9 @@ class Document extends Model
         'path',
         'description',
     ];
+
+    public function defermentApplication()
+    {
+      $this->belongsTo(DefermentApplication::class);
+    }
 }
