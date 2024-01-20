@@ -55,17 +55,17 @@ class User extends Authenticatable
 
     public function student()
     {
-        $this->hasOne(Student::class);
+        return $this->hasOne(Student::class,'user_id');
     }
     public function supervisor()
     {
-        $this->hasOne(Supervisor::class);
+      return  $this->hasOne(Supervisor::class,'user_id');
     }
 
     public function meta()
     {
-        if ($this->role =='student') return $this->load('student');
-        if ($this->role =='faculty') return $this->load('supervisor');
+        if ($this->role =='student') return $this->load('student')->student()->first();
+        if ($this->role =='faculty') return $this->load('supervisor')->supervisor()->first();
         return null;
     }
 

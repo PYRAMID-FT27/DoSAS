@@ -26,4 +26,8 @@ class Supervisor extends Model
         return $this->belongsToMany(Student::class,'student_supervisor','supervisor_id','student_id')
             ->withPivot('supervisor_type');
     }
+    public function user()
+    {
+        return $this->hasOne(User::class,'id','user_id');
+    }
 }

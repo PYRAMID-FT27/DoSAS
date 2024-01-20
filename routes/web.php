@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Home\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth:faculty,web,staff','is_first_login'])->name('dashboard');
+Route::get('/dashboard',[DashboardController::class,'index'])->middleware(['auth:faculty,web,staff','is_first_login'])->name('dashboard');
 
 Route::middleware('auth:faculty,web,staff')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

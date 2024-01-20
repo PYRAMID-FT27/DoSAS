@@ -18,12 +18,21 @@ class ApplicationLogFactory extends Factory
      */
     public function definition(): array
     {
+       $da =  DefermentApplication::factory()->create();
+       $svs = Supervisor::factory(3)->create();
+       $student =  $da->student()->first();
+        foreach ($svs as $inx => $sv){
+            $supervisorType = 0 == $inx ?'main':'co';
+            $student->supervisors()->attach($sv->id,['supervisor_type' => $supervisorType]);
+        }
+
         return [
-            'application_id' => DefermentApplication::factory()->create()->id,
-            'changed_by' => Supervisor::factory()->create()->id,
+            'application_id' => $da->id,
+            'changed_by' => $svs[0],
             'changed_at' => fake()->time(),
             'previous_status'=> fake()->randomElement(['rejected','approved','reviewing','process','draft','pending']),
             'new_status' =>fake()->randomElement(['rejected','approved','reviewing','process','draft','pending']),
         ];
+
     }
 }
