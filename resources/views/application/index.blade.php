@@ -54,7 +54,7 @@
                         {{$defermentApplication->notes??'-'}}
                     </td>
                     <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                        #
+                        <a href="{{route('defermentApplication.edit',$defermentApplication)}}" class="text-blue-800 text-base font-medium me-2 px-2.5 py-0.5  dark:text-blue-400">Edit</a>
                     </td>
                 </tr>
                 @endforeach

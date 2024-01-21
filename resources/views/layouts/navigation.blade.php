@@ -17,7 +17,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden capitalize space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('application.index')" :active="request()->routeIs('application')">
+                    <x-nav-link :href="route('defermentApplication.index')" :active="request()->routeIs('defermentApplication.*')">
                         {{ __('application') }}
                     </x-nav-link>
                 </div>

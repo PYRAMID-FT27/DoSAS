@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Contract\Services\DefermentApplication;
+use App\Contract\Services\DefermentApplication as DefermentApplicationService;
 use App\Http\Requests\StoreDefermentApplicationRequest;
 use App\Http\Requests\UpdateDefermentApplicationRequest;
+use App\Models\DefermentApplication;
 
 class DefermentApplicationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(DefermentApplication $defermentApplicationService)
+    public function index(DefermentApplicationService $defermentApplicationService)
     {
         $defermentApplications = $defermentApplicationService->setParameters(['user'=>auth()->user()])
                                                         ->process()
@@ -25,7 +26,7 @@ class DefermentApplicationController extends Controller
      */
     public function create()
     {
-        //
+        return view('application.create');
     }
 
     /**
@@ -49,7 +50,11 @@ class DefermentApplicationController extends Controller
      */
     public function edit(DefermentApplication $defermentApplication)
     {
-        //
+        $types = config('dosas.type');
+        $status = config('dosas.status');
+        $semesters = config('dosas.semester');
+        $student = $defermentApplication->student;
+        return view('application.edit',compact('defermentApplication','types','status','student','semesters'));
     }
 
     /**

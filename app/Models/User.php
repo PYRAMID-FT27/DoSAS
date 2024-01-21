@@ -64,9 +64,17 @@ class User extends Authenticatable
 
     public function meta()
     {
-        if ($this->role =='student') return $this->load('student')->student()->first();
-        if ($this->role =='faculty') return $this->load('supervisor')->supervisor()->first();
+        if ($this->isStudent()) return $this->load('student')->student()->first();
+        if ($this->isFaculty()) return $this->load('supervisor')->supervisor()->first();
         return null;
+    }
+    public function isStudent()
+    {
+        return $this->role == 'student';
+    }
+    public function isFaculty()
+    {
+        return $this->role == 'faculty';
     }
 
 }

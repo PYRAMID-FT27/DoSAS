@@ -25,4 +25,8 @@ class Student extends Model
     {
         return $this->hasMany(DefermentApplication::class);
     }
+    public function user()
+    {
+        return $this->hasOne(User::class,'id','user_id');
+    }
 }
