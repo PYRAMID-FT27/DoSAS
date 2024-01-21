@@ -48,10 +48,10 @@
                         {!! $defermentApplication->getType() !!}
                     </td>
                     <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                        {{$defermentApplication->submitted_at}}
+                        {{$defermentApplication->submitted_at?:'Not yet'}}
                     </td>
                     <td class="px-6 py-4">
-                        {{$defermentApplication->notes}}
+                        {{$defermentApplication->notes??'-'}}
                     </td>
                     <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
                         #
