@@ -62,7 +62,8 @@ class DefermentApplicationController extends Controller
      */
     public function update(UpdateDefermentApplicationRequest $request, DefermentApplication $defermentApplication)
     {
-        //
+
+      dd($request->all(),$request->input('action'));
     }
 
     /**

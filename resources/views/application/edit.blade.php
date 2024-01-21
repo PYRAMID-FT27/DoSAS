@@ -41,10 +41,23 @@
             </nav>
         </h2>
     </x-slot>
+    <div>
+
+        @forelse($errors as $error)
+            @dd($error)
+        @empty
+        @endforelse
+    </div>
     <div class="py-12 w-full sm:w-4/12 mx-auto">
         <div class="relative bg-white p-10 overflow-x-auto shadow-md sm:rounded-lg">
-            <form class="border-0 mx-auto" multiple="" enctype="multipart/form-data">
+            <form method="post" action="{{route('defermentApplication.update',$defermentApplication)}}" class="border-0 mx-auto" enctype="multipart/form-data">
+                @method('PATCH')
                   @include('application.form')
+                <div class="my-5">
+                    <a href="{{route('defermentApplication.index')}}" class="text-red-800 font-xl capitalize text-sm w-full sm:w-auto px-5 py-2.5 text-center">back</a>
+                    <button type="submit" value="save" name="action" class="text-blue-800 border border-blue-800 capitalize font-xl rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">save</button>
+                    <button type="submit" value="submit" name="action" class="text-white uppercase bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                </div>
             </form>
         </div>
     </div>

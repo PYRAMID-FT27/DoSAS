@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateDefermentApplicationRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateDefermentApplicationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::isLoginBy() ;
     }
 
     /**
@@ -22,7 +23,8 @@ class UpdateDefermentApplicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'docs' => 'required|mimes:jpeg,jpg,pdf,doc,docx|max:10000',
+            'details' => 'required',
         ];
     }
 }
