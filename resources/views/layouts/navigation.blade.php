@@ -16,6 +16,11 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden capitalize space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('application.index')" :active="request()->routeIs('application')">
+                        {{ __('application') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

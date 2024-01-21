@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Contract\Services\DefermentApplication;
 use App\Http\Requests\StoreDefermentApplicationRequest;
 use App\Http\Requests\UpdateDefermentApplicationRequest;
-use App\Models\DefermentApplication;
 
 class DefermentApplicationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(DefermentApplication $defermentApplicationService)
     {
-        //
+        $defermentApplications = $defermentApplicationService->setParameters(['user'=>auth()->user()])
+                                                        ->process()
+                                                        ->listApplication()
+                                                        ->output('applications');
+        return view('application.index',compact('defermentApplications'));
     }
 
     /**

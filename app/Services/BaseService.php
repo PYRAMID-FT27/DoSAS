@@ -7,7 +7,8 @@ use App\Contract\BaseServiceInterface;
 class BaseService implements BaseServiceInterface
 {
 
-    private array $parameterBag = [];
+    protected array $parameterBag = [];
+    protected array $output = [];
 
     public function getParameters():array
     {
@@ -16,6 +17,12 @@ class BaseService implements BaseServiceInterface
 
     public function setParameters(array $parameters): BaseServiceInterface
     {
-        $this->parameterBag = [];
+        $this->parameterBag = $parameters;
+        return $this;
+    }
+
+    public function output(string $key)
+    {
+        return $this->output[$key];
     }
 }

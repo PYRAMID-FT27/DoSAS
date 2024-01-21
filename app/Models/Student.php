@@ -21,4 +21,8 @@ class Student extends Model
       return  $this->belongsToMany(Supervisor::class,'student_supervisor','student_id','supervisor_id')
                   ->withPivot('supervisor_type');
     }
+    public function applications()
+    {
+        return $this->hasMany(DefermentApplication::class);
+    }
 }

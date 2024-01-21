@@ -47,7 +47,14 @@
                 @foreach($meta->load('supervisors')->supervisors()->get() as $item)
                     <div class="p-6 text-gray-900 flex justify-between dark:text-gray-100">
                         <p class="w-7/12"><b>supervisor</b>:{{$item->title}}.{{$item->load('user')->user->name}}</p>
-                        <p class="w-fit capitalize"><b>{{$item->pivot->supervisor_type}} supervisor</b></p>
+                        <p class="w-fit capitalize">
+                            <b>
+                                <div
+                                    class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-blue-200 text-blue-700 rounded-full">
+                                    {{$item->pivot->supervisor_type}} supervisor
+                                </div>
+                            </b>
+                        </p>
                     </div>
                 @endforeach
             </div>
