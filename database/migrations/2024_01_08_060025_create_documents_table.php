@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('application_id')->constrained('deferment_applications')->onDelete('cascade');
             $table->string('type')->nullable();
             $table->string('path');
+            $table->string('file_name');
             $table->text('description')->nullable();
             $table->timestamps();
         });

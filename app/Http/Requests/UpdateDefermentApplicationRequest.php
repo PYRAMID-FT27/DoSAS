@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\DefermentApplication;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,9 +23,10 @@ class UpdateDefermentApplicationRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'docs' => 'required|mimes:jpeg,jpg,pdf,doc,docx|max:10000',
-            'details' => 'required',
-        ];
+        return DefermentApplication::$roles;
+    }
+    public function messages()
+    {
+        return DefermentApplication::$errorMessages;
     }
 }

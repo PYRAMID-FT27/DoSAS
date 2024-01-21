@@ -54,16 +54,21 @@ class DefermentApplicationController extends Controller
         $status = config('dosas.status');
         $semesters = config('dosas.semester');
         $student = $defermentApplication->student;
-        return view('application.edit',compact('defermentApplication','types','status','student','semesters'));
+        $doucments = $defermentApplication->load('documents')->documents()->get();
+        return view('application.edit',compact('defermentApplication','types','status','student','doucments','semesters'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDefermentApplicationRequest $request, DefermentApplication $defermentApplication)
+    public function update(UpdateDefermentApplicationRequest $request, DefermentApplication $defermentApplication, DefermentApplicationService $defermentApplicationService)
     {
-
-      dd($request->all(),$request->input('action'));
+        try {
+            $defermentApplicationService->setParameters(['inputs'=>$request->all(),'da'=>$defermentApplication,'user'=>auth()->user()])->updateApplications();
+            return redirect()->route('defermentApplication.index');
+        }catch (\Throwable $throwable){
+            dd($throwable);
+        }
     }
 
     /**

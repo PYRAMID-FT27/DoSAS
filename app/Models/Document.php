@@ -11,6 +11,7 @@ class Document extends Model
 
     protected $fillable = [
         'application_id',
+        'file_name',
         'type',
         'path',
         'description',
@@ -19,5 +20,9 @@ class Document extends Model
     public function defermentApplication()
     {
       $this->belongsTo(DefermentApplication::class);
+    }
+    public function getRouteKeyName()
+    {
+        return 'application_id';
     }
 }

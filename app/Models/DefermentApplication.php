@@ -19,6 +19,16 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
         'details',
         'notes',
     ];
+    public static $roles = [
+        'docs.*' => 'mimes:jpeg,jpg,pdf,doc,docx|max:10000',
+        'docs' => 'required_if:action,submit',
+        'details' => 'required_if:action,submit',
+    ];
+    public static $errorMessages= [
+        'docs.required_if' => 'Please provide documentation to support your case before submit your application!',
+        'details.required_if' => 'you should write deferment details before submit your application!',
+        'docs.*' => 'Only files with the following formats are accepted: JPEG, JPG, PDF, DOC, and DOCX!',
+    ];
 
     public function applicationLog(): HasMany
     {
@@ -30,13 +40,17 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
         return $this->belongsTo(Student::class);
     }
 
+    public function documents()
+    {
+        return $this->hasMany(Document::class,'application_id','id');
+    }
     public function getStatus()
     {
         switch ($this->status){
             case 'reviewing':
-               return '<span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">'.$this->status.'</span>';
+               return '<span class="bg-blue-100 text-blue-800 text-sm font-bold me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">'.$this->status.'</span>';
             case 'draft':
-               return '<span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">'.$this->status.'</span>';
+               return '<span class="bg-gray-100 text-gray-800 text-sm font-bold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">'.$this->status.'</span>';
 
         }
     }
@@ -44,10 +58,15 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
     {
         switch ($this->type){
             case 'medical':
-               return '<span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-yellow-300 border border-yellow-300">'.$this->type.'</span>';
-            case 'draft':
-               return '<span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">'.$this->status.'</span>';
+               return '<span class="bg-yellow-100 text-yellow-800 text-sm font-bold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-yellow-300 border border-yellow-300">'.$this->type.'</span>';
+            case 'other':
+               return '<span class="bg-orange-100 text-orange-800 text-sm font-bold me-2 px-2.5 py-0.5 rounded dark:bg-blue-700 dark:text-orange-300">'.$this->type.'</span>';
 
         }
+    }
+
+    public function isEditable(): bool
+    {
+        return empty($this->submitted_at);
     }
 }
