@@ -21,13 +21,11 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
     ];
     public static $roles = [
         'docs.*' => 'mimes:jpeg,jpg,pdf,doc,docx|max:10000',
-        'docs' => 'required_if:action,submit',
         'details' => 'required_if:action,submit',
     ];
     public static $errorMessages= [
-        'docs.required_if' => 'Please provide documentation to support your case before submit your application!',
-        'details.required_if' => 'you should write deferment details before submit your application!',
         'docs.*' => 'Only files with the following formats are accepted: JPEG, JPG, PDF, DOC, and DOCX!',
+        'docs.required_if' => 'Please provide documentation to support your case before submit your application!'
     ];
 
     public function applicationLog(): HasMany

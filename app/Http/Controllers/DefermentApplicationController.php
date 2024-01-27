@@ -6,6 +6,12 @@ use App\Contract\Services\DefermentApplication as DefermentApplicationService;
 use App\Http\Requests\StoreDefermentApplicationRequest;
 use App\Http\Requests\UpdateDefermentApplicationRequest;
 use App\Models\DefermentApplication;
+use App\Models\Document;
+use App\Rules\UserHasDocument;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\ValidatedInput;
+use Illuminate\Validation\Rule;
 
 class DefermentApplicationController extends Controller
 {
@@ -54,6 +60,7 @@ class DefermentApplicationController extends Controller
         $status = config('dosas.status');
         $semesters = config('dosas.semester');
         $student = $defermentApplication->student;
+
         $doucments = $defermentApplication->load('documents')->documents()->get();
         return view('application.edit',compact('defermentApplication','types','status','student','doucments','semesters'));
     }
@@ -64,6 +71,7 @@ class DefermentApplicationController extends Controller
     public function update(UpdateDefermentApplicationRequest $request, DefermentApplication $defermentApplication, DefermentApplicationService $defermentApplicationService)
     {
         try {
+            $request->validated();
             $defermentApplicationService->setParameters(['inputs'=>$request->all(),'da'=>$defermentApplication,'user'=>auth()->user()])->updateApplications();
             return redirect()->route('defermentApplication.index');
         }catch (\Throwable $throwable){

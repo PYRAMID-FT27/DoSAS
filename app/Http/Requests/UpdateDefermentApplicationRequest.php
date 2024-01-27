@@ -3,8 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Models\DefermentApplication;
+use App\Models\Document;
+use App\Rules\UserHasDocument;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UpdateDefermentApplicationRequest extends FormRequest
 {
@@ -23,10 +26,21 @@ class UpdateDefermentApplicationRequest extends FormRequest
      */
     public function rules(): array
     {
-        return DefermentApplication::$roles;
+      $roles = DefermentApplication::$roles;
+        $docsRule['docs'] = Rule::requiredIf(function () {
+            $ap = $this->route()->parameter('defermentApplication');
+            $userHasDocument  = Document::where('application_id',$ap->id)->exists();
+            $isSubmitting = request()->input('action') === 'submit';
+            return !$userHasDocument && $isSubmitting && !$this->request->get('docs');
+    });
+        $roles = array_merge($docsRule, $roles);
+        return $roles;
     }
     public function messages()
     {
-        return DefermentApplication::$errorMessages;
+        $docsErorrMessage['docs.required'] = 'you should write deferment details before submit your application!';
+        $msg = DefermentApplication::$errorMessages;
+        $msg = array_merge($docsErorrMessage, $msg);
+        return $msg;
     }
 }
