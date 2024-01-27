@@ -30,6 +30,7 @@ Route::middleware('auth:faculty,web,staff')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('defermentApplication', DefermentApplicationController::class);
     Route::get('document/{document}', [DocumentController::class,'download'])->name('document.download');
+    Route::delete('document/{document}/delete', [DocumentController::class,'destroy'])->name('document.delete');
 });
 
 require __DIR__.'/auth.php';

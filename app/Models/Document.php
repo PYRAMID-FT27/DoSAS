@@ -21,8 +21,9 @@ class Document extends Model
     {
       $this->belongsTo(DefermentApplication::class);
     }
-    public function getRouteKeyName()
+
+    public function getFullPath()
     {
-        return 'application_id';
+        return 'public/'.$this->path;
     }
 }

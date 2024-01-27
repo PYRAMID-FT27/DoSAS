@@ -44,11 +44,12 @@
             <h2 class="mb-2 text-base font-semibold text-gray-900 dark:text-white">supporting documents:</h2>
             <ul class="max-w-md space-y-1 my-3 text-gray-500 list-inside dark:text-gray-400">
                 @foreach($doucments as $doucment)
-                    <li class="flex items-center">
+                    <li class="flex justify-between items-center">
                         <a href="{{route('document.download',$doucment)}}" class="flex justify-between">
                             <svg class="w-6 h-6 mx-1 text-gray-800 block dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 19">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15h.01M4 12H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-3M9.5 1v10.93m4-3.93-4 4-4-4"/>
                             </svg><b class="block mx-1">{{$doucment->file_name}}</b></a>
+                        <a href="#" class="text-red-800 block text-2xl" onclick="confirmDelete({{$doucment->id}},event)">x</a>
                     </li>
                 @endforeach
             </ul>
@@ -69,3 +70,16 @@
     </div>
 
 </div>
+<script>
+    function confirmDelete(id, e) {
+        const parentNode = e.currentTarget.parentNode;
+        console.log(parentNode);
+        if (confirm('Are you sure you want to delete this document?')) {
+            axios.delete(`/document/${id}/delete`).then(response => {
+                parentNode.remove();
+            }).catch(error => {
+                console.error('Error deleting the document:', error);
+            });
+        }
+    }
+</script>
