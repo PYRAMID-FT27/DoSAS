@@ -12,6 +12,7 @@ class DashboardController extends Controller
         {
             $user = auth()->user();
             $meta = $user->meta();
-            return view('home.dashboard',compact('user','meta'));
+            $view = sprintf('home.%s-dashboard',$user->role);
+            return view($view,compact('user','meta'));
         }
 }

@@ -23,6 +23,6 @@ class BaseService implements BaseServiceInterface
 
     public function output(string $key)
     {
-        return $this->output[$key];
+        return $this->output[$key]??null;
     }
 }

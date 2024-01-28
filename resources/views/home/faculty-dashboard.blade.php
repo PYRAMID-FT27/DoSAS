@@ -11,20 +11,20 @@
                information
             </div>
             <div class="bg-white dark:bg-gray-800 capitalize overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                   <b>name</b>: {{$user->name}}
+                <div class="p-6 capitalize text-gray-900 dark:text-gray-100">
+                   <b>name</b>: {{$meta->title.' '.$user->name}}
+                </div>
+                <div class="p-6 capitalize text-gray-900 dark:text-gray-100">
+                    <b>department</b>: {{$user->department}}
+                </div>
+                <div class="p-6 capitalize text-gray-900 dark:text-gray-100">
+                    <b>filed</b>: {{$meta->research_interests}}
+                </div>
+                <div class="p-6 capitalize text-gray-900 dark:text-gray-100">
+                    <b>Office</b>: {{$meta->office_location}}
                 </div>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <b>metric number</b>: {{$user->metric_no}}
-                </div>
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <b>ID/Passport</b>: {{$meta->ic}}
-                </div>
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <b>Nationality</b>: {{$meta->nationality}}
-                </div>
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <b>program code</b>: {{$meta->program_code}}
+                    <b> Capacity: Number of Students Supervised  </b>: {{$meta->max_students}}
                 </div>
             </div>
         </div>
@@ -44,17 +44,9 @@
                 academic info
             </div>
             <div class="bg-white dark:bg-gray-800 capitalize overflow-hidden shadow-sm sm:rounded-lg">
-                @foreach($meta->load('supervisors')->supervisors()->get() as $item)
+                @foreach($meta->load('students')->students()->get() as $item)
                     <div class="p-6 text-gray-900 flex justify-between dark:text-gray-100">
-                        <p class="w-7/12"><b>supervisor</b>:{{$item->title}}.{{$item->load('user')->user->name}}</p>
-                        <p class="w-fit capitalize">
-                            <b>
-                                <div
-                                    class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-blue-200 text-blue-700 rounded-full">
-                                    {{$item->pivot->supervisor_type}} supervisor
-                                </div>
-                            </b>
-                        </p>
+                        <p class="w-7/12"><b>student name</b>:{{$item->title}}.{{$item->load('user')->user->name}}</p>
                     </div>
                 @endforeach
             </div>

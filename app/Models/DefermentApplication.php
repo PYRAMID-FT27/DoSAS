@@ -25,6 +25,13 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
         'semester' => 'required_if:action,submit',
         'type' => 'required_if:action,submit',
     ];
+    public const ACTIONS = [
+        'rejected' => 'Rejection',
+        'approved' => 'Approval',
+        'reviewing' => 'Reviewing',
+        'process' => 'Processing',
+        'pending' => 'Pending'
+    ];
     public static $errorMessages= [
         'docs.*' => 'Only files with the following formats are accepted: JPEG, JPG, PDF, DOC, and DOCX!',
         'docs.required_if' => 'you should write deferment details before submit your application!',

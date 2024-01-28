@@ -6,13 +6,6 @@ use App\Contract\Services\DefermentApplication as DefermentApplicationService;
 use App\Http\Requests\StoreDefermentApplicationRequest;
 use App\Http\Requests\UpdateDefermentApplicationRequest;
 use App\Models\DefermentApplication;
-use App\Models\Document;
-use App\Rules\UserHasDocument;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\ValidatedInput;
-use Illuminate\Validation\Rule;
 
 class DefermentApplicationController extends Controller
 {
@@ -60,15 +53,17 @@ class DefermentApplicationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DefermentApplication $defermentApplication)
+    public function show(DefermentApplication $defermentApplication,DefermentApplicationService $defermentApplicationService)
     {
-        $defermentApplication->load('applicationLog');
-        $applicationLogs = $defermentApplication->applicationLog()
-                                                ->orderByDesc('created_at')
-                                                ->get()->groupBy(function ($log){
-                                                 return $log->created_at->format('F j, Y [ H:i ]');
-            });
-        return view('application.show',compact('applicationLogs','defermentApplication'));
+        $defermentApplicationService->setParameters([
+            'da'=>$defermentApplication,
+            'user'=>auth()->user()
+        ])->showDdefermentApplication();
+        $actions = DefermentApplication::ACTIONS;
+        $applicationLogs = $defermentApplicationService->output('applicationLogs');
+        $student = $defermentApplicationService->output('student');
+        $documents = $defermentApplicationService->output('documents');
+        return view('application.show',compact('applicationLogs','actions','documents','student','defermentApplication'));
     }
 
     /**
@@ -96,6 +91,7 @@ class DefermentApplicationController extends Controller
             return redirect()->route('defermentApplication.index');
         }catch (\Throwable $throwable){
            notify()->error($throwable->getMessage());
+            return redirect()->route('defermentApplication.index');
         }
     }
 

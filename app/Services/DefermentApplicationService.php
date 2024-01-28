@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Contract\Repository\DefermentApplicationRepositoryInterface;
 use App\Contract\Services\DefermentApplication;
+use App\Models\ApplicationLog;
 use Illuminate\Support\Facades\Storage;
 
 class DefermentApplicationService extends BaseService implements DefermentApplication
@@ -36,6 +37,9 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
                                                     ->applications()
                                                     ->paginate(10);
                break;
+           case 'faculty':
+               $this->output['applications'] = $this->fetchSupervisorStudentApplications();
+               break;
            default:
                throw new \Exception('Invalid type');
        }
@@ -58,17 +62,28 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
        $defApp =  $this->parameterBag['da'];
        $inputs =  $this->parameterBag['inputs'];
        $user =  $this->parameterBag['user'];
-       if ($defApp->submitted_at) throw new \Exception('this application can not update it');
-        $defApp->update([
-           'status'=> self::ACTION_TYPE[$inputs['action']],
-           'submitted_at' =>$inputs['action']=='submit'?now():null,
-           'semester'=>$inputs['semester'],
-           'type'=>$inputs['type'],
-           'details'=>$inputs['details'],
-           'notes'=>$inputs['action']=='submit'?"your application is to be reviewed by your supervisors":'draft application',
-       ]);
-        $inputs['action']=='submit'?notify()->success('your application has been submitted successfully') :notify()->info('your application has been saved successfully');
-       if (isset($inputs['docs'])) $this->saveDocuments($inputs['docs'], $user, $defApp);
+       if ($defApp->submitted_at && $user->isStudent()) throw new \Exception('this application can not update it');
+       switch ($user->role){
+           case 'student':
+               $defApp->update([
+                   'status'=> self::ACTION_TYPE[$inputs['action']],
+                   'submitted_at' =>$inputs['action']=='submit'?now():null,
+                   'semester'=>$inputs['semester'],
+                   'type'=>$inputs['type'],
+                   'details'=>$inputs['details'],
+                   'notes'=>$inputs['action']=='submit'?"application is to be reviewed by supervisor":'draft application',
+               ]);
+               $inputs['action']=='submit'? notify()->success('your application has been submitted successfully') :notify()->info('your application has been saved successfully');
+               if (isset($inputs['docs'])) $this->saveDocuments($inputs['docs'], $user, $defApp);
+               break;
+           case 'faculty':
+               $defApp->update([
+                   'status'=> $inputs['action'],
+                   'notes'=>$inputs['remarks']
+               ]);
+               notify()->success('an application has been updated successfully');
+               break;
+       }
 
     }
     public function createApplication()
@@ -123,5 +138,47 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
                 'description' => sprintf('this supporting document for %s - %s', $defApp->type, $defApp->semester),
             ]);
         }
+    }
+
+    private function fetchSupervisorStudentApplications()
+    {
+        $supervisorId = $this->parameterBag['user']->meta()->id;
+        $supervisorUserId = $this->parameterBag['user']->id;
+        return \App\Models\DefermentApplication::whereHas('student.supervisors', function ($query) use ($supervisorId) {
+            $query->where('supervisor_id', $supervisorId)
+                  ->where('supervisor_type', 'main');
+        })/*->whereDoesntHave('applicationLog', function ($query) use ($supervisorUserId) {
+            $query->where('changed_by', $supervisorUserId)
+                   ->where('action_type', 'Approval');
+        })*/->where('status','!=','draft')
+            ->paginate(10);
+    }
+    public function showDdefermentApplication()
+    {
+        $defermentApplication = $this->parameterBag['da'];
+        $user = $this->parameterBag['user'];
+        $defermentApplication->load('applicationLog');
+        $defermentApplication->load('documents');
+        $documents = $defermentApplication->documents()->get();
+        switch ($user->role){
+            case 'student':
+                $applicationLogs = $defermentApplication->applicationLog()
+                    ->orderByDesc('created_at')
+                    ->get()->groupBy(function ($log){
+                        return $log->created_at->format('F j, Y [ H:i ]');
+                    });
+                break;
+            case 'faculty':
+                $applicationLogs = $defermentApplication->applicationLog()
+                    ->orderByDesc('created_at')
+                    ->get()->groupBy(function ($log){
+                        return $log->created_at->format('F j, Y [ H:i ]');
+                    });
+                $student =  $defermentApplication->student;
+                break;
+        }
+        $this->output['applicationLogs'] = $applicationLogs;
+        $this->output['student'] = $student;
+        $this->output['documents'] = $documents;
     }
 }
