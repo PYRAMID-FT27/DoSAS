@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('application_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('application_id')->constrained('deferment_applications')->onDelete('cascade');
-            $table->foreignId('changed_by')->constrained('users')->onDelete('set null');
+            $table->foreignId('changed_by')->constrained('users')->onDelete(null);
             $table->dateTime('changed_at');
-            $table->enum('previous_status',['rejected','approved','reviewing','process','draft','pending']);
+            $table->enum('previous_status',['rejected','approved','reviewing','process','draft','pending','-']);
             $table->string('new_status',['rejected','approved','reviewing','process','draft','pending']);
             $table->text('remarks')->nullable();
             $table->string('action_type')->nullable();

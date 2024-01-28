@@ -10,6 +10,7 @@ use App\Models\Document;
 use App\Rules\UserHasDocument;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ValidatedInput;
 use Illuminate\Validation\Rule;
 
@@ -97,6 +98,7 @@ class DefermentApplicationController extends Controller
      */
     public function destroy(DefermentApplication $defermentApplication)
     {
+       $this->authorize('delete',$defermentApplication);
        $defermentApplication->delete();
        notify()->warning('Application has been deleted successfully');
        return redirect()->back();

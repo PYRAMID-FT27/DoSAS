@@ -29,7 +29,7 @@ class DefermentApplicationPolicy
      */
     public function create(User $user): bool
     {
-        //
+       return true;
     }
 
     /**
@@ -45,22 +45,7 @@ class DefermentApplicationPolicy
      */
     public function delete(User $user, DefermentApplication $defermentApplication): bool
     {
-        //
+        return $user->id == $defermentApplication->load('student')->student->user_id;
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, DefermentApplication $defermentApplication): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, DefermentApplication $defermentApplication): bool
-    {
-        //
-    }
 }

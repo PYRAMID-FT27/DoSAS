@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Contract\Repository\DALoggerRepositoryInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ApplicationLog extends Model
+class ApplicationLog extends Model implements DALoggerRepositoryInterface
 {
     use HasFactory;
     protected $fillable=[
