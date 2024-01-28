@@ -7,6 +7,8 @@ use App\Models\DefermentApplication;
 use App\Policies\DefermentApplicationPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Vite;
+use Illuminate\Support\Str;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -31,6 +33,24 @@ class AuthServiceProvider extends ServiceProvider
                     return $guard;
                 }
             }
+        });
+
+        Str::macro('colorStatus',function ($status){
+            switch (strtolower($status)){
+                case 'reviewing':
+                    return '<h3 class="capitalize text-violet-800 text-lg font-semibold">'.$status.'</h3>';
+                case 'process':
+                    return '<h3 class="capitalize text-lg text-blue-700 font-semibold">'.$status.'</h3>';
+                case 'rejected':
+                    return '<h3 class="capitalize text-red-700 text-lg font-semibold">'.$status.'</h3>';
+                case 'pending':
+                    return '<h3 class="capitalize text-lg text-yellow-500 font-semibold">'.$status.'</h3>';
+                case 'approved':
+                    return '<h3 class="capitalize text-green-700 text-lg font-semibold ">'.$status.'</h3>';
+                case 'draft':
+                    return '<h3 class="capitalize text-lg text-gray-500 font-semibold">'.$status.'</h3>';
+            }
+
         });
     }
 }

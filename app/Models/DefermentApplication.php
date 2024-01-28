@@ -6,6 +6,7 @@ use App\Contract\Repository\DefermentApplicationRepositoryInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class DefermentApplication extends Model implements DefermentApplicationRepositoryInterface
 {
@@ -32,6 +33,13 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
         'process' => 'Processing',
         'pending' => 'Pending'
     ];
+    public static $color = [
+        'rejected' => 'red-700',
+        'approved' => 'green-700',
+        'reviewing' => 'gray-700',
+        'process' => 'blue-700',
+        'pending' => 'yellow-500'
+    ];
     public static $errorMessages= [
         'docs.*' => 'Only files with the following formats are accepted: JPEG, JPG, PDF, DOC, and DOCX!',
         'docs.required_if' => 'you should write deferment details before submit your application!',
@@ -55,11 +63,19 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
     }
     public function getStatus()
     {
-        switch ($this->status){
+        switch (strtolower($this->status)){
             case 'reviewing':
-               return '<span class="bg-blue-100 text-blue-800 text-sm font-bold me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">'.$this->status.'</span>';
+               return '<span class="text-blue-800 text-base font-bold me-2 px-2.5 py-0.5 rounded">'.$this->status.'</span>';
+            case 'process':
+               return '<span class="text-blue-800 text-base font-bold me-2 px-2.5 py-0.5 rounded">'.$this->status.'</span>';
+            case 'rejected':
+               return '<span class="text-red-800 text-base font-bold me-2 px-2.5 py-0.5 rounded">'.$this->status.'</span>';
+            case 'pending':
+               return '<span class="bg-blue-100 text-yellow-500 text-base font-bold me-2 px-2.5 py-0.5 rounded">'.$this->status.'</span>';
+            case 'approved':
+               return '<span class="text-green-700 text-base font-bold me-2 px-2.5 py-0.5 rounded ">'.$this->status.'</span>';
             case 'draft':
-               return '<span class="bg-gray-100 text-gray-800 text-sm font-bold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">'.$this->status.'</span>';
+               return '<span class="bg-gray-100 text-gray-800 text-base font-bold me-2 px-2.5 py-0.5 rounded">'.$this->status.'</span>';
 
         }
     }
@@ -82,4 +98,5 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
     {
         return empty($this->submitted_at);
     }
+
 }
