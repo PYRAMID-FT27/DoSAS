@@ -43,10 +43,15 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
         $user = \App\Models\User::where('metric_no',$this->get('metric_no'))->first();
-        if (empty($user))  throw ValidationException::withMessages(['metric number' => 'metric number not exits in our system',]);
+        if (empty($user)) {
+            notify()->error('metric number or password are incorrect');
+            throw ValidationException::withMessages(['metric number' => 'metric number not exits in our system',]);
+        }
+
         $guard = $user->role == 'student' ? 'web' : $user->role;
         if (! Auth::guard($guard)->attempt(['metric_no'=>$this->get('metric_no'),'password'=>$this->get('password')])) {
             RateLimiter::hit($this->throttleKey());
+            notify()->error('metric number or password are incorrect');
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
