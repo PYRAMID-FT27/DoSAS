@@ -5,7 +5,7 @@
                 {{ __('my application') }}
             </h2>
             <h2 class="w-2/12 text-right items-end justify-end">
-                <a class="capitalize block w-fit cursor-pointer items-end justify-end px-5 font-extrabold rounded-lg hover:bg-green-700 hover:text-white py-3 text-right text-green-700 border-2 border-green-700">{{ __('new application') }} </a>
+                <a href="{{route('defermentApplication.create')}}" class="capitalize block w-fit cursor-pointer items-end justify-end px-5 font-extrabold rounded-lg hover:bg-green-700 hover:text-white py-3 text-right text-green-700 border-2 border-green-700">{{ __('new application') }} </a>
             </h2>
         </div>
     </x-slot>

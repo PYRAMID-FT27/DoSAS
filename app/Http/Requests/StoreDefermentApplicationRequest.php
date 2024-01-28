@@ -2,7 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\DefermentApplication;
+use App\Models\Document;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class StoreDefermentApplicationRequest extends FormRequest
 {
@@ -11,7 +15,7 @@ class StoreDefermentApplicationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::isLoginBy() ;
     }
 
     /**
@@ -21,8 +25,20 @@ class StoreDefermentApplicationRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        $roles = DefermentApplication::$roles;
+        $docsRule['docs'] = Rule::requiredIf(function () {
+            $isSubmitting = request()->input('action') === 'submit';
+            return $isSubmitting && !$this->request->get('docs');
+        });
+        $roles = array_merge($docsRule, $roles);
+        return $roles;
+
+    }
+    public function messages()
+    {
+        $docsErorrMessage['docs.required'] = 'Please provide documentation to support your case before submit your application!!';
+        $msg = DefermentApplication::$errorMessages;
+        $msg = array_merge($docsErorrMessage, $msg);
+        return $msg;
     }
 }

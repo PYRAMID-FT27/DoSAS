@@ -25,7 +25,7 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
     ];
     public static $errorMessages= [
         'docs.*' => 'Only files with the following formats are accepted: JPEG, JPG, PDF, DOC, and DOCX!',
-        'docs.required_if' => 'Please provide documentation to support your case before submit your application!'
+        'docs.required_if' => 'you should write deferment details before submit your application!'
     ];
 
     public function applicationLog(): HasMany

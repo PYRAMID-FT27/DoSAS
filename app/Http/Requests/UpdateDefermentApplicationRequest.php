@@ -38,7 +38,7 @@ class UpdateDefermentApplicationRequest extends FormRequest
     }
     public function messages()
     {
-        $docsErorrMessage['docs.required'] = 'you should write deferment details before submit your application!';
+        $docsErorrMessage['docs.required'] = 'Please provide documentation to support your case before submit your application!!';
         $msg = DefermentApplication::$errorMessages;
         $msg = array_merge($docsErorrMessage, $msg);
         return $msg;

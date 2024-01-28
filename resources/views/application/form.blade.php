@@ -1,14 +1,14 @@
 @csrf
     <div class="relative z-0 w-full mb-5 group">
-        <input type="text" value="{{$student->user->name}}" name="name" id="name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" disabled />
+        <input type="text" value="{{empty($student)?'':$student->user->name}}" name="name" id="name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" disabled />
         <label for="name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Student Name</label>
     </div>
     <div class="relative z-0 w-full mb-5 group">
-        <input type="text" value="{{$student->user->metric_no}}" name="metric_no" id="metric_no" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" disabled />
+        <input type="text" value="{{empty($student)?'':$student->user->metric_no}}" name="metric_no" id="metric_no" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" disabled />
         <label for="metric_no" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Student metric Number</label>
     </div>
     <div class="relative z-0 w-full mb-5 group">
-        <input type="text" value="{{$student->program_code}}" name="program_code" id="program_code" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" disabled />
+        <input type="text" value="{{empty($student)?'':$student->program_code}}" name="program_code" id="program_code" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" disabled />
         <label for="program_code" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Student program code</label>
     </div>
 <div class="my-5">
@@ -16,7 +16,7 @@
     <select name="semester" id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
         <option selected>Choose Semester</option>
         @foreach($semesters as $semester)
-            <option value="{{$semester}}" {{$defermentApplication->semester==$semester?'selected':''}}>{{$semester}}</option>
+            <option value="{{$semester}}" {{isset($defermentApplication) && $defermentApplication->semester==$semester?'selected':''}}>{{$semester}}</option>
         @endforeach
     </select>
 </div>
@@ -25,7 +25,7 @@
     <select name="type" id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
         <option selected>Choose Deferment Type</option>
         @foreach($types as $type)
-            <option value="{{$type}}" {{$defermentApplication->type==$type?'selected':''}}>{{$type}}</option>
+            <option value="{{$type}}" {{isset($defermentApplication) && $defermentApplication->type==$type?'selected':''}}>{{$type}}</option>
         @endforeach
     </select>
 </div>
@@ -35,11 +35,11 @@
               rows="10"
               name="details"
               class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Write your details here...">{{$defermentApplication->details}}
+              placeholder="Write your details here...">{{empty($defermentApplication)?'':$defermentApplication->details}}
     </textarea>
 </div>
 <div class="my-5">
-    @if($doucments)
+    @if(isset($doucments))
         <div class="my-3">
             <h2 class="mb-2 text-base font-semibold text-gray-900 dark:text-white">supporting documents:</h2>
             <ul class="max-w-md space-y-1 my-3 text-gray-500 list-inside dark:text-gray-400">
