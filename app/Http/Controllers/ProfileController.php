@@ -33,7 +33,7 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
-
+        notify()->success('Password has been updated successfully');
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 

@@ -48,7 +48,7 @@ class DefermentApplicationController extends Controller
         try {
             $request->validated();
             $defermentApplicationService->setParameters(['inputs'=>$request->all(),'user'=>auth()->user()])->createApplication();
-            redirect()->back();
+            return redirect()->route('defermentApplication.index');
         }catch (\Throwable $throwable){
             dd($throwable);
             notify()->error($throwable->getMessage());
@@ -97,6 +97,8 @@ class DefermentApplicationController extends Controller
      */
     public function destroy(DefermentApplication $defermentApplication)
     {
-        //
+       $defermentApplication->delete();
+       notify()->warning('Application has been deleted successfully');
+       return redirect()->back();
     }
 }

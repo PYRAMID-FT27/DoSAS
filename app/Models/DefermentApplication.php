@@ -22,10 +22,14 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
     public static $roles = [
         'docs.*' => 'mimes:jpeg,jpg,pdf,doc,docx|max:10000',
         'details' => 'required_if:action,submit',
+        'semester' => 'required_if:action,submit',
+        'type' => 'required_if:action,submit',
     ];
     public static $errorMessages= [
         'docs.*' => 'Only files with the following formats are accepted: JPEG, JPG, PDF, DOC, and DOCX!',
-        'docs.required_if' => 'you should write deferment details before submit your application!'
+        'docs.required_if' => 'you should write deferment details before submit your application!',
+        'semester.required_if' => 'you need to select semester!',
+        'type.required_if' => 'kindly select deferment reason type!',
     ];
 
     public function applicationLog(): HasMany

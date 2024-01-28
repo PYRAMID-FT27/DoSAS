@@ -60,7 +60,6 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
        $user =  $this->parameterBag['user'];
        if ($defApp->submitted_at) throw new \Exception('this application can not update it');
         $defApp->update([
-           'student_id',
            'status'=> self::ACTION_TYPE[$inputs['action']],
            'submitted_at' =>$inputs['action']=='submit'?now():null,
            'semester'=>$inputs['semester'],

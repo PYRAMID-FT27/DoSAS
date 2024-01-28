@@ -14,7 +14,7 @@
 <div class="my-5">
     <label for="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600">Semester</label>
     <select name="semester" id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-        <option selected>Choose Semester</option>
+        <option value="">Choose Semester</option>
         @foreach($semesters as $semester)
             <option value="{{$semester}}" {{isset($defermentApplication) && $defermentApplication->semester==$semester?'selected':''}}>{{$semester}}</option>
         @endforeach
@@ -23,7 +23,7 @@
 <div class="my-5">
     <label for="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600">Type</label>
     <select name="type" id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-        <option selected>Choose Deferment Type</option>
+        <option value="">Choose Deferment Type</option>
         @foreach($types as $type)
             <option value="{{$type}}" {{isset($defermentApplication) && $defermentApplication->type==$type?'selected':''}}>{{$type}}</option>
         @endforeach

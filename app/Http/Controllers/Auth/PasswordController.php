@@ -23,6 +23,7 @@ class PasswordController extends Controller
         $data ['password'] = Hash::make($validated['password']);
         if ($request->user()->isFirstLogin())$data ['first_login_at'] = now();
         $request->user()->update($data);
+        notify()->success('Password has been updated successfully');
         return back()->with('status', 'password-updated');
     }
 }
