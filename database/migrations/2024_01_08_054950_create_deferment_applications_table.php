@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('deferment_applications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained('students');
-            $table->string('status',['rejected','approved','reviewing','process','draft','pending']);
+            $table->string('status',['rejected','approved','reviewing','process','draft','pending'])->nullable();
             $table->dateTime('submitted_at')->nullable();
-            $table->string('semester');
-            $table->enum('type',['academic','personal','medical','other']);
-            $table->text('details');
+            $table->string('semester')->nullable();
+            $table->enum('type',['academic','personal','medical','other'])->nullable();
+            $table->text('details')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
         });

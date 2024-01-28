@@ -45,8 +45,14 @@ class DefermentApplicationController extends Controller
      */
     public function store(StoreDefermentApplicationRequest $request,DefermentApplicationService $defermentApplicationService)
     {
-        $request->validated();
-        $defermentApplicationService->setParameters(['inputs'=>$request->all(),'user'=>auth()->user()])->updateApplications();
+        try {
+            $request->validated();
+            $defermentApplicationService->setParameters(['inputs'=>$request->all(),'user'=>auth()->user()])->createApplication();
+            redirect()->back();
+        }catch (\Throwable $throwable){
+            dd($throwable);
+            notify()->error($throwable->getMessage());
+        }
 
     }
 

@@ -72,6 +72,22 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
        if (isset($inputs['docs'])) $this->saveDocuments($inputs['docs'], $user, $defApp);
 
     }
+    public function createApplication()
+    {
+        $inputs =  $this->parameterBag['inputs'];
+        $user =  $this->parameterBag['user'];
+        $defApp = $user->student->applications()->create([
+            'status'=> self::ACTION_TYPE[$inputs['action']],
+            'submitted_at' =>$inputs['action']=='submit'?now():null,
+            'semester'=>$inputs['semester'],
+            'type'=>$inputs['type'],
+            'details'=>$inputs['details'],
+            'notes'=>$inputs['action']=='submit'?"your application is to be reviewed by your supervisors":'draft application',
+        ]);
+        $inputs['action']=='submit'?notify()->success('your application has been submitted successfully') :notify()->info('your application has been saved successfully');
+        if (isset($inputs['docs'])) $this->saveDocuments($inputs['docs'], $user, $defApp);
+
+    }
 
     /**
      * @param mixed $user
