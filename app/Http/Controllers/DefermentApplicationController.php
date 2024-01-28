@@ -32,15 +32,22 @@ class DefermentApplicationController extends Controller
      */
     public function create()
     {
-        return view('application.create');
+        $student = auth()->user()->student;
+        $types = config('dosas.type');
+        $status = config('dosas.status');
+        $semesters = config('dosas.semester');
+
+        return view('application.create',compact('types','student','status','semesters'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDefermentApplicationRequest $request)
+    public function store(StoreDefermentApplicationRequest $request,DefermentApplicationService $defermentApplicationService)
     {
-        //
+        $request->validated();
+        $defermentApplicationService->setParameters(['inputs'=>$request->all(),'user'=>auth()->user()])->updateApplications();
+
     }
 
     /**
