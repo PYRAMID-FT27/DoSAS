@@ -1,8 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold capitalize text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('my application') }}
-        </h2>
+        <div class="flex justify-between">
+            <h2 class="font-semibold capitalize w-6/12 text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('my application') }}
+            </h2>
+            <h2 class="w-2/12 text-right items-end justify-end">
+                <a class="capitalize block w-fit cursor-pointer items-end justify-end px-5 font-extrabold rounded-lg hover:bg-green-700 hover:text-white py-3 text-right text-green-700 border-2 border-green-700">{{ __('new application') }} </a>
+            </h2>
+        </div>
     </x-slot>
     <div class="py-12 w-full sm:w-8/12 mx-auto">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
