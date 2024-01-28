@@ -66,8 +66,9 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
            'semester'=>$inputs['semester'],
            'type'=>$inputs['type'],
            'details'=>$inputs['details'],
-           'notes'=>$inputs['action']=='submit'?"your application is to be reviewed by your supervisors":'-',
+           'notes'=>$inputs['action']=='submit'?"your application is to be reviewed by your supervisors":'draft application',
        ]);
+        $inputs['action']=='submit'?notify()->success('your application has been submitted successfully') :notify()->info('your application has been saved successfully');
        if (isset($inputs['docs'])) $this->saveDocuments($inputs['docs'], $user, $defApp);
 
     }

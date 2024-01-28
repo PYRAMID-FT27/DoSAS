@@ -75,7 +75,7 @@ class DefermentApplicationController extends Controller
             $defermentApplicationService->setParameters(['inputs'=>$request->all(),'da'=>$defermentApplication,'user'=>auth()->user()])->updateApplications();
             return redirect()->route('defermentApplication.index');
         }catch (\Throwable $throwable){
-            dd($throwable);
+           notify()->error($throwable->getMessage());
         }
     }
 
