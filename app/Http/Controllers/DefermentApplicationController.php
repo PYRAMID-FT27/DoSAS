@@ -62,7 +62,13 @@ class DefermentApplicationController extends Controller
      */
     public function show(DefermentApplication $defermentApplication)
     {
-        //
+        $defermentApplication->load('applicationLog');
+        $applicationLogs = $defermentApplication->applicationLog()
+                                                ->orderByDesc('created_at')
+                                                ->get()->groupBy(function ($log){
+                                                 return $log->created_at->format('F j, Y [ H:i ]');
+            });
+        return view('application.show',compact('applicationLogs','defermentApplication'));
     }
 
     /**

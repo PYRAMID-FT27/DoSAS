@@ -34,7 +34,7 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
 
     public function applicationLog(): HasMany
     {
-        return $this->hasMany(ApplicationLog::class);
+        return $this->hasMany(ApplicationLog::class,'application_id','id');
     }
 
     public function student()
