@@ -51,6 +51,10 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
     {
         return $this->hasMany(ApplicationLog::class,'application_id','id');
     }
+    public function latestChange()
+    {
+        return $this->applicationLog()->latest()->first();
+    }
 
     public function student()
     {
@@ -65,20 +69,26 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
     {
         switch (strtolower($this->status)){
             case 'reviewing':
-               return '<span class="text-blue-800 text-base font-bold me-2 px-2.5 py-0.5 rounded">'.$this->status.'</span>';
+               return '<span class="text-blue-800 text-base font-bold me-2 px-2.5 py-0.5 rounded capitalize">'.$this->status .' '.$this->statusByUser().'</span>';
             case 'process':
-               return '<span class="text-blue-800 text-base font-bold me-2 px-2.5 py-0.5 rounded">'.$this->status.'</span>';
+               return '<span class="text-blue-800 text-base font-bold me-2 px-2.5 py-0.5 rounded capitalize">'.$this->status .' '.$this->statusByUser().'</span>';
             case 'rejected':
-               return '<span class="text-red-800 text-base font-bold me-2 px-2.5 py-0.5 rounded">'.$this->status.'</span>';
+               return '<span class="text-red-800 text-base font-bold me-2 px-2.5 py-0.5 rounded capitalize">'.$this->status .' '.$this->statusByUser().'</span>';
             case 'pending':
-               return '<span class="bg-blue-100 text-yellow-500 text-base font-bold me-2 px-2.5 py-0.5 rounded">'.$this->status.'</span>';
+               return '<span class="bg-blue-100 text-yellow-500 text-base font-bold me-2 px-2.5 py-0.5 rounded capitalize">'.$this->status .' '.$this->statusByUser().'</span>';
             case 'approved':
-               return '<span class="text-green-700 text-base font-bold me-2 px-2.5 py-0.5 rounded ">'.$this->status.'</span>';
+               return '<span class="text-green-700 text-base font-bold me-2 px-2.5 py-0.5 rounded capitalize">'.$this->status .' '.$this->statusByUser().'</span>';
             case 'draft':
-               return '<span class="bg-gray-100 text-gray-800 text-base font-bold me-2 px-2.5 py-0.5 rounded">'.$this->status.'</span>';
+               return '<span class="bg-gray-100 text-gray-800 text-base font-bold me-2 px-2.5 py-0.5 rounded">'.$this->status .' '.$this->statusByUser().'</span>';
 
         }
     }
+    public function statusByUser()
+    {
+       $by =  $this->latestChange()->changeByUser();
+       return empty($by)?'':'By '.$by;
+    }
+
     public function getType()
     {
         switch ($this->type){

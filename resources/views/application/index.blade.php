@@ -4,9 +4,11 @@
             <h2 class="font-semibold capitalize w-6/12 text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('my application') }}
             </h2>
-            <h2 class="w-2/12 text-right items-end justify-end">
-                <a href="{{route('defermentApplication.create')}}" class="capitalize block w-fit cursor-pointer items-end justify-end px-5 font-extrabold rounded-lg hover:bg-green-700 hover:text-white py-3 text-right text-green-700 border-2 border-green-700">{{ __('new application') }} </a>
-            </h2>
+            @if(auth()->user()->isStudent())
+                <h2 class="w-2/12 text-right items-end justify-end">
+                    <a href="{{route('defermentApplication.create')}}" class="capitalize block w-fit cursor-pointer items-end justify-end px-5 font-extrabold rounded-lg hover:bg-green-700 hover:text-white py-3 text-right text-green-700 border-2 border-green-700">{{ __('new application') }} </a>
+                </h2>
+            @endif
         </div>
     </x-slot>
     <div class="py-12 w-full sm:w-8/12 mx-auto">
@@ -78,11 +80,10 @@
                                     <path d="M7.324 9.917A2.479 2.479 0 0 1 7.99 7.7l.71-.71a2.484 2.484 0 0 1 2.222-.688 4.538 4.538 0 1 0-3.6 3.615h.002ZM7.99 18.3a2.5 2.5 0 0 1-.6-2.564A2.5 2.5 0 0 1 6 13.5v-1c.005-.544.19-1.072.526-1.5H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h7.687l-.697-.7ZM19.5 12h-1.12a4.441 4.441 0 0 0-.579-1.387l.8-.795a.5.5 0 0 0 0-.707l-.707-.707a.5.5 0 0 0-.707 0l-.795.8A4.443 4.443 0 0 0 15 8.62V7.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.12c-.492.113-.96.309-1.387.579l-.795-.795a.5.5 0 0 0-.707 0l-.707.707a.5.5 0 0 0 0 .707l.8.8c-.272.424-.47.891-.584 1.382H8.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1.12c.113.492.309.96.579 1.387l-.795.795a.5.5 0 0 0 0 .707l.707.707a.5.5 0 0 0 .707 0l.8-.8c.424.272.892.47 1.382.584v1.12a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1.12c.492-.113.96-.309 1.387-.579l.795.8a.5.5 0 0 0 .707 0l.707-.707a.5.5 0 0 0 0-.707l-.8-.795c.273-.427.47-.898.584-1.392h1.12a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5ZM14 15.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/>
                                 </svg>
                             </a>
-                        @endif
-                            <a href="{{route('defermentApplication.show',$defermentApplication)}}">
-                                <svg fill="green" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     width="25" height="25" viewBox="0 0 33.627 33.628"
-                                     xml:space="preserve">
+                                <a href="{{route('defermentApplication.show',$defermentApplication)}}">
+                                    <svg fill="green" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         width="25" height="25" viewBox="0 0 33.627 33.628"
+                                         xml:space="preserve">
                                         <g>
                                             <path d="M27.131,8.383c0-2.092-1.701-3.794-3.794-3.794s-3.793,1.702-3.793,3.794c0,0.99,0.39,1.885,1.013,2.561
                                                 c-0.474,2.004-1.639,2.393-4.167,3.029c-1.279,0.322-2.753,0.7-4.099,1.501V7.003c1.072-0.671,1.793-1.854,1.793-3.209
@@ -96,7 +97,8 @@
                                                 C25.131,9.373,24.327,10.177,23.337,10.177z"/>
                                         </g>
                                         </svg>
-                            </a>
+                                </a>
+                        @endif
                     </td>
                 </tr>
                 @endforeach
