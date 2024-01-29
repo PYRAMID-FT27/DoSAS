@@ -144,13 +144,25 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
     {
         $supervisorId = $this->parameterBag['user']->meta()->id;
         $supervisorUserId = $this->parameterBag['user']->id;
-        return \App\Models\DefermentApplication::whereHas('student.supervisors', function ($query) use ($supervisorId) {
-            $query->where('supervisor_id', $supervisorId)
-                  ->where('supervisor_type', 'main');
-        })/*->whereDoesntHave('applicationLog', function ($query) use ($supervisorUserId) {
-            $query->where('changed_by', $supervisorUserId)
-                   ->where('action_type', 'Approval');
-        })*/->where('status','!=','draft')
+
+        return \App\Models\DefermentApplication::where(function ($query) use ($supervisorId,$supervisorUserId){
+            $query->whereHas('student.supervisors', function ($query) use ($supervisorId) {
+                $query->where('supervisor_id', $supervisorId)
+                      ->where('supervisor_type', 'main');
+            });
+            $query->orWhereHas('student.supervisors', function ($subQuery) use ($supervisorUserId) {
+                $subQuery->where('user_id', $supervisorUserId)
+                         ->where('supervisor_type', 'coordinator');
+
+            })
+                ->whereHas('applicationLog', function ($subQuery) use ($supervisorUserId) {
+                $subQuery->whereHas('user',function ($userQuery){
+                        $userQuery->where('role','faculty');
+                    })
+                    ->where('action_type', 'Approval');
+            });
+
+        })->where('status', '!=', 'draft')
             ->paginate(10);
     }
     public function showDdefermentApplication()

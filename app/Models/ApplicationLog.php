@@ -25,15 +25,15 @@ class ApplicationLog extends Model implements DALoggerRepositoryInterface
     }
     public function User()
     {
-        return $this->hasOne(User::class,'id','changed_by')->first();
+        return $this->hasOne(User::class,'id','changed_by');
     }
     public function changeByUser()
     {
-        $user = $this->User();
+        $user = $this->User()->first();
         switch ($user->role){
             case 'faculty':
                 $supervisor = $this->defermentApplication->student->supervisors()->where('user_id',$user->id)->first();
-                return !empty($supervisor->pivot) && $supervisor->pivot->supervisor_type == 'main' ? 'supervisor' : '';
+                return !empty($supervisor->pivot) && ($type = $supervisor->pivot->supervisor_type) == 'main' ? 'supervisor' :(!empty($supervisor->pivot) && $type?'coordinator':'');
             default:
                 return '';
         }
