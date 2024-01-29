@@ -62,7 +62,7 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
        $defApp =  $this->parameterBag['da'];
        $inputs =  $this->parameterBag['inputs'];
        $user =  $this->parameterBag['user'];
-       if ($defApp->submitted_at && $user->isStudent()) throw new \Exception('this application can not update it');
+       if ((!$defApp->isEditable()) && $user->isStudent()) throw new \Exception('this application can not update it');
        switch ($user->role){
            case 'student':
                $defApp->update([
@@ -160,6 +160,7 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
         $defermentApplication->load('applicationLog');
         $defermentApplication->load('documents');
         $documents = $defermentApplication->documents()->get();
+        $student =  $defermentApplication->student;
         switch ($user->role){
             case 'student':
                 $applicationLogs = $defermentApplication->applicationLog()
@@ -174,7 +175,6 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
                     ->get()->groupBy(function ($log){
                         return $log->created_at->format('F j, Y [ H:i ]');
                     });
-                $student =  $defermentApplication->student;
                 break;
         }
         $this->output['applicationLogs'] = $applicationLogs;

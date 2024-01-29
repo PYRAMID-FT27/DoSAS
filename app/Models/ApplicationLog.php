@@ -19,8 +19,23 @@ class ApplicationLog extends Model implements DALoggerRepositoryInterface
         'action_type',
     ];
 
-    public function DefermentApplication()
+    public function defermentApplication()
     {
-      return $this->belongsTo(DefermentApplication::class);
+      return $this->belongsTo(DefermentApplication::class,'application_id','id');
+    }
+    public function User()
+    {
+        return $this->hasOne(User::class,'id','changed_by')->first();
+    }
+    public function changeByUser()
+    {
+        $user = $this->User();
+        switch ($user->role){
+            case 'faculty':
+                $supervisor = $this->defermentApplication->student->supervisors()->where('user_id',$user->id)->first();
+                return $supervisor->pivot->supervisor_type =='main'?'supervisor':'';
+            default:
+                return '';
+        }
     }
 }

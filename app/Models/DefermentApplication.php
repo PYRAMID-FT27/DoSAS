@@ -96,7 +96,7 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
 
     public function isEditable(): bool
     {
-        return empty($this->submitted_at);
+        return empty($this->submitted_at) || ($this->submitted_at && $this->status =='pending');
     }
 
 }
