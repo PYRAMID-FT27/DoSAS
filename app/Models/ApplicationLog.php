@@ -33,7 +33,7 @@ class ApplicationLog extends Model implements DALoggerRepositoryInterface
         switch ($user->role){
             case 'faculty':
                 $supervisor = $this->defermentApplication->student->supervisors()->where('user_id',$user->id)->first();
-                return $supervisor->pivot->supervisor_type =='main'?'supervisor':'';
+                return !empty($supervisor->pivot) && $supervisor->pivot->supervisor_type == 'main' ? 'supervisor' : '';
             default:
                 return '';
         }

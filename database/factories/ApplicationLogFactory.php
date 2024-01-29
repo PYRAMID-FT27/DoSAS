@@ -25,7 +25,6 @@ class ApplicationLogFactory extends Factory
             $supervisorType = 0 == $inx ?'main':'co';
             $student->supervisors()->attach($sv->id,['supervisor_type' => $supervisorType]);
         }
-
         return [
             'application_id' => $da->id,
             'changed_by' => $svs[0],

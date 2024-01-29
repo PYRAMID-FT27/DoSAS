@@ -2,7 +2,11 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold capitalize w-6/12 text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('my application') }}
+              @if(auth()->user()->isStudent())
+                    {{ __('my applications') }}
+                @else
+                    {{ __('student\'s applications list') }}
+              @endif
             </h2>
             @if(auth()->user()->isStudent())
                 <h2 class="w-2/12 text-right items-end justify-end">
@@ -61,7 +65,7 @@
                             {!! $defermentApplication->getStatus() !!}
                         </td>
                         <td class="px-6 py-4 flex justify-between dark:bg-red-800">
-                        @if($defermentApplication->isEditable())
+                        @if(auth()->user()->isStudent() && $defermentApplication->isEditable())
                             <a href="{{route('defermentApplication.edit',$defermentApplication)}}" class="text-blue-800 w-1/3 text-base font-medium me-2 px-2.5 py-0.5  dark:text-blue-400">Edit</a>
                                 <div class="w-1/3">
                                     <form action="{{route('defermentApplication.destroy',$defermentApplication)}}" method="post">

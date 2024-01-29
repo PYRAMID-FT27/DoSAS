@@ -18,5 +18,12 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(1)->create(['role' => 'assistant']);
         ApplicationLog::factory(10)->create();
+        $sv = Supervisor::factory()->create();
+        $students = Student::all();
+        foreach ($students as $student){
+            $student->supervisors()->attach($sv->id,['supervisor_type' => 'coordinator']);
+        }
+
+
     }
 }
