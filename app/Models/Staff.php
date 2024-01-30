@@ -12,7 +12,7 @@ class Staff extends User
     public static function boot() {
         parent::boot();
         static::addGlobalScope('role', function (Builder $builder) {
-            $builder->where('role',  'assistant');
+            $builder->where('role',  'staff');
         });
     }
 
