@@ -80,10 +80,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Staff::class,
         ],
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+         'users' => [
+             'driver' => 'eloquent',
+             'model' => \App\Models\User::class,
+         ],
     ],
 
     /*
@@ -107,7 +107,7 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'student',
+            'provider' => 'users',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
