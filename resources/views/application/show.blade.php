@@ -80,7 +80,7 @@
                                        class="peer-focus:font-medium absolute text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 text-xl peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">remarks</label>
                             </div>
                             <select name="action" id="action"
-                                    {{$defermentApplication->status ==='rejected'? 'disabled':''}} class="block text-{{DefermentApplication::$color[$defermentApplication->status]}} py-2.5 px-2 w-full font-extrabold text-base bg-transparent border-0 border-b-2 border-{{DefermentApplication::$color[$defermentApplication->status]}} appearance-none  peer">
+                                    {{$defermentApplication->isApprovedByCurrentUser() || $defermentApplication->status ==='rejected'? 'disabled':''}} class="block text-{{DefermentApplication::$color[$defermentApplication->status]}} py-2.5 px-2 w-full font-extrabold text-base bg-transparent border-0 border-b-2 border-{{DefermentApplication::$color[$defermentApplication->status]}} appearance-none  peer">
                                 <option value="">Choose Action</option>
                                 @foreach($actions as $inx =>$action)
                                     <option value="{{$inx}}"

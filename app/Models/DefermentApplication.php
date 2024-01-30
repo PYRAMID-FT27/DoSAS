@@ -51,6 +51,15 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
     {
         return $this->hasMany(ApplicationLog::class,'application_id','id');
     }
+
+    public function isApprovedByCurrentUser()
+    {
+        return $this->applicationLog()
+                    ->where('changed_by', auth()->id())
+                    ->where('action_type', 'Approval')
+                    ->where('application_id', $this->id)
+                    ->exists();
+    }
     public function latestChange()
     {
         return $this->applicationLog()->latest()->first();
