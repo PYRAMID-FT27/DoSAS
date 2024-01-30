@@ -40,6 +40,9 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
            case 'faculty':
                $this->output['applications'] = $this->fetchSupervisorStudentApplications();
                break;
+           case 'staff':
+               $this->output['applications'] = $this->fetchStudentApplications();
+               break;
            default:
                throw new \Exception('Invalid type');
        }
@@ -77,6 +80,7 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
                if (isset($inputs['docs'])) $this->saveDocuments($inputs['docs'], $user, $defApp);
                break;
            case 'faculty':
+           case 'staff':
                $defApp->update([
                    'status'=> $inputs['action'],
                    'notes'=>$inputs['remarks']
@@ -165,6 +169,13 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
         })->where('status', '!=', 'draft')
             ->paginate(10);
     }
+    private function fetchStudentApplications()
+    {
+        return \App\Models\DefermentApplication::whereHas('applicationLog', function ($subQuery) {
+            $subQuery->where('action_type', 'Approval');
+        }, '>=', 2)->paginate(10);
+
+    }
     public function showDdefermentApplication()
     {
         $defermentApplication = $this->parameterBag['da'];
@@ -182,6 +193,7 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
                     });
                 break;
             case 'faculty':
+            case 'staff':
                 $applicationLogs = $defermentApplication->applicationLog()
                     ->orderByDesc('created_at')
                     ->get()->groupBy(function ($log){

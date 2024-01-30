@@ -34,6 +34,8 @@ class ApplicationLog extends Model implements DALoggerRepositoryInterface
             case 'faculty':
                 $supervisor = $this->defermentApplication->student->supervisors()->where('user_id',$user->id)->first();
                 return !empty($supervisor->pivot) && ($type = $supervisor->pivot->supervisor_type) == 'main' ? 'supervisor' :(!empty($supervisor->pivot) && $type?'coordinator':'');
+            case 'staff':
+                return 'UTM officer';
             default:
                 return '';
         }

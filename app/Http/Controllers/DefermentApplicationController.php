@@ -55,15 +55,19 @@ class DefermentApplicationController extends Controller
      */
     public function show(DefermentApplication $defermentApplication,DefermentApplicationService $defermentApplicationService)
     {
-        $defermentApplicationService->setParameters([
-            'da'=>$defermentApplication,
-            'user'=>auth()->user()
-        ])->showDdefermentApplication();
-        $actions = DefermentApplication::ACTIONS;
-        $applicationLogs = $defermentApplicationService->output('applicationLogs');
-        $student = $defermentApplicationService->output('student');
-        $documents = $defermentApplicationService->output('documents');
-        return view('application.show',compact('applicationLogs','actions','documents','student','defermentApplication'));
+        try {
+            $defermentApplicationService->setParameters([
+                'da'=>$defermentApplication,
+                'user'=>auth()->user()
+            ])->showDdefermentApplication();
+            $actions = DefermentApplication::ACTIONS;
+            $applicationLogs = $defermentApplicationService->output('applicationLogs');
+            $student = $defermentApplicationService->output('student');
+            $documents = $defermentApplicationService->output('documents');
+            return view('application.show',compact('applicationLogs','actions','documents','student','defermentApplication'));
+        }catch (\Throwable $throwable){
+            dd($throwable);
+        }
     }
 
     /**
@@ -90,6 +94,7 @@ class DefermentApplicationController extends Controller
             $defermentApplicationService->setParameters(['inputs'=>$request->all(),'da'=>$defermentApplication,'user'=>auth()->user()])->updateApplications();
             return redirect()->route('defermentApplication.index');
         }catch (\Throwable $throwable){
+            dd($throwable);
            notify()->error($throwable->getMessage());
             return redirect()->route('defermentApplication.index');
         }

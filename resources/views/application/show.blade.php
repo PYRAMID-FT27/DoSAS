@@ -84,7 +84,8 @@
                                 <option value="">Choose Action</option>
                                 @foreach($actions as $inx =>$action)
                                     <option value="{{$inx}}"
-                                            {{$inx == $defermentApplication->status?'selected':'' }} class="text-base p-2 block font-extrabold text-blue-800">{{$action}}</option>
+                                            {{$inx == $defermentApplication->status?'selected':'' }}
+                                            class="text-base p-2 block font-extrabold text-blue-800">{{$action}}</option>
                                 @endforeach
                             </select>
                         </div>
