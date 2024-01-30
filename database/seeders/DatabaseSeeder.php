@@ -17,13 +17,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(1)->create(['role' => 'staff']);
-        ApplicationLog::factory(10)->create();
         $sv = Supervisor::factory()->create();
-        $students = Student::all();
+        $svs = Supervisor::factory(3)->create();
+        $students =  Student::factory(5)->create();
         foreach ($students as $student){
+            foreach ($svs as $inx => $sv){
+                $supervisorType = 0 == $inx ?'main':'co';
+                $student->supervisors()->attach($sv->id,['supervisor_type' => $supervisorType]);
+            }
             $student->supervisors()->attach($sv->id,['supervisor_type' => 'coordinator']);
         }
-
-
     }
 }
