@@ -20,7 +20,7 @@ return new class extends Migration
             $table->dateTime('first_login_at')->nullable();
             $table->string('phone_number')->unique()->index();
             $table->string('metric_no')->index()->unique();
-            $table->enum('role',['faculty','student','assistant']);
+            $table->enum('role',['faculty','student','staff']);
             $table->rememberToken();
             $table->timestamps();
         });

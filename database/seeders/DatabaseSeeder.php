@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(1)->create(['role' => 'assistant']);
+        User::factory(1)->create(['role' => 'staff']);
         ApplicationLog::factory(10)->create();
         $sv = Supervisor::factory()->create();
         $students = Student::all();
