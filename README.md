@@ -44,6 +44,6 @@ php artisan migrate
 php artisan serve
 ```
 ## Powered by <a href='https://github.com/ibrahimMH13'> Ibrahim Musabeh </a>
-##License
+## License
 The project is open-sourced software licensed under the (CC BY-NC) license.
 
