@@ -106,11 +106,14 @@
                     <b>Nationality</b>: {{auth()->user()->isStudent()?$meta->nationality : $student->nationality}}
                 </div>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <b>Faculty</b>: {{auth()->user()->isStudent()?$meta->faculty : $student->faculty}}
+                </div>
+                <div class="p-6 text-gray-900 dark:text-gray-100">
                     <b>program code</b>: {{auth()->user()->isStudent()?$meta->program_code : $student->program_code}}
                 </div>
             </div>
         </div>
-         @if($prevApplications)
+         @if($prevApplications->all())
                 <div class="mb-1 mt-1 sm:w-8/12 mx-auto">
                     <h2 class="uppercase text-gray-900 m-2 dark:text-gray-100">previous student's Applications</h2>
                     @foreach($prevApplications as $prevApplication)

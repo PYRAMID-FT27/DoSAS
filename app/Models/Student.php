@@ -31,5 +31,9 @@ class Student extends Model
         return $this->hasOne(User::class,'id','user_id');
     }
 
+    public function mainSupervisor()
+    {
+       return $this->supervisors()->where('supervisor_type','main')->first();
+    }
 
 }

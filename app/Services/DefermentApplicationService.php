@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Contract\Repository\DefermentApplicationRepositoryInterface;
 use App\Contract\Services\DefermentApplication;
+use App\Mail\SubmittedApplication;
 use App\Models\ApplicationLog;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class DefermentApplicationService extends BaseService implements DefermentApplication
@@ -94,6 +96,7 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
     {
         $inputs =  $this->parameterBag['inputs'];
         $user =  $this->parameterBag['user'];
+
         $defApp = $user->student->applications()->create([
             'status'=> self::ACTION_TYPE[$inputs['action']],
             'submitted_at' =>$inputs['action']=='submit'?now():null,
@@ -102,7 +105,13 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
             'details'=>$inputs['details'],
             'notes'=>$inputs['action']=='submit'?"your application is to be reviewed by your supervisors":'draft application',
         ]);
-        $inputs['action']=='submit'?notify()->success('your application has been submitted successfully') :notify()->info('your application has been saved successfully');
+        if ($inputs['action']=='submit'){
+            $ms = $user->student->mainSupervisor();
+            Mail::to($user->email)->bcc($ms->user->email)->send(new SubmittedApplication($defApp));
+            notify()->success('your application has been submitted successfully');
+        }else{
+            notify()->info('your application has been saved successfully');
+        }
         if (isset($inputs['docs'])) $this->saveDocuments($inputs['docs'], $user, $defApp);
 
     }
