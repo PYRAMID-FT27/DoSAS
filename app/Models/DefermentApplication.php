@@ -45,6 +45,7 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
         'docs.required_if' => 'you should write deferment details before submit your application!',
         'semester.required_if' => 'you need to select semester!',
         'type.required_if' => 'kindly select deferment reason type!',
+        'details' => 'kindly provide more context of your deferment request!',
     ];
 
     public function applicationLog(): HasMany

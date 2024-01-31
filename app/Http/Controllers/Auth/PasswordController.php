@@ -24,6 +24,6 @@ class PasswordController extends Controller
         if ($request->user()->isFirstLogin())$data ['first_login_at'] = now();
         $request->user()->update($data);
         notify()->success('Password has been updated successfully');
-        return back()->with('status', 'password-updated');
+        return redirect()->route('dashboard')->with('status', 'password-updated');
     }
 }
