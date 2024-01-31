@@ -8,7 +8,7 @@
     <div class="py-12 sm:flex w-full sm:w-3/4 mx-auto">
         <div class="sm:w-7/12 mx-auto sm:px-6 lg:px-8">
             <div class="p-6 uppercase text-gray-900 dark:text-gray-100">
-               information
+                <b class="border border-black rounded-lg px-3 py-1">student's</b>  information
             </div>
             <div class="bg-white dark:bg-gray-800 capitalize overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
