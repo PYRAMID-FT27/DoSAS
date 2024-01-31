@@ -45,5 +45,5 @@ php artisan serve
 ```
 ## Powered by <a href='https://github.com/ibrahimMH13'> Ibrahim Musabeh </a>
 ## License
-The project is open-sourced software licensed under the (CC BY-NC) license.
+The project is open-sourced software licensed under <a href='https://creativecommons.org/licenses/by/4.0/'>the Creative Commons BY-NC License (CC BY-NC)</a> license.
 
