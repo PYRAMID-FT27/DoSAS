@@ -46,7 +46,7 @@
             <div class="bg-white dark:bg-gray-800 capitalize overflow-hidden shadow-sm sm:rounded-lg">
                 @foreach($meta->load('students')->students()->get() as $item)
                     <div class="p-6 text-gray-900 flex justify-between dark:text-gray-100">
-                        <p class="w-7/12"><b>student name</b>{{$item->load('user')->user->name}}</p>
+                        <p class="w-7/12"><b>student name</b> {{$item->load('user')->user->name}}</p>
                     </div>
                 @endforeach
             </div>

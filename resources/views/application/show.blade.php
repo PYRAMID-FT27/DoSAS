@@ -110,6 +110,17 @@
                 </div>
             </div>
         </div>
+         @if($prevApplications)
+                <div class="mb-1 mt-1 sm:w-8/12 mx-auto">
+                    <h2 class="uppercase text-gray-900 m-2 dark:text-gray-100">previous student's Applications</h2>
+                    @foreach($prevApplications as $prevApplication)
+                        <a target="_blank" href="{{route('defermentApplication.show',$prevApplication)}}"
+                           class="px-5 text-blue-700 border-blue-500">
+                            [{{$prevApplication->created_at->format('Y d,M')}} - {{ $prevApplication->semester }} - {{ $prevApplication->type }}]
+                        </a>
+                    @endforeach
+                </div>
+            @endif
         <div class="mb-5 mt-5 sm:w-8/12 mx-auto">
             <h2 class="uppercase text-gray-900 m-2 dark:text-gray-100">Application documents</h2>
             @foreach($documents as $document)

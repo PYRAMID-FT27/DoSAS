@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use http\Exception\InvalidArgumentException;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -24,11 +26,14 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::orderBy('id', 'desc')->first();
+        $lastInsertId = empty($user)?0:(int)$user->id;
+        $lastInsertId++;
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'metric_no' => $this->generateMatric(),
+            'metric_no' => $this->generateMatric($lastInsertId),
             'role' => fake()->randomElement(['faculty', 'student', 'assistant']),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
@@ -37,11 +42,9 @@ class UserFactory extends Factory
     }
 
 
-    protected function generateMatric()
+    protected function generateMatric($id)
     {
-        $prefixes = ['PAN', 'MAN'];
-        $prefix = fake()->randomElement($prefixes);
-        return sprintf('%s%s%03d', $prefix, date('y'), fake()->unique()->numberBetween(1, 9999));
+        return sprintf('%s%s%04d', 'MAN', date('y'), $id);
     }
 
     /**

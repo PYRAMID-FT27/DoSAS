@@ -62,9 +62,10 @@ class DefermentApplicationController extends Controller
             ])->showDdefermentApplication();
             $actions = DefermentApplication::ACTIONS;
             $applicationLogs = $defermentApplicationService->output('applicationLogs');
+            $prevApplications = $defermentApplicationService->output('prevApplications');
             $student = $defermentApplicationService->output('student');
             $documents = $defermentApplicationService->output('documents');
-            return view('application.show',compact('applicationLogs','actions','documents','student','defermentApplication'));
+            return view('application.show',compact('applicationLogs','prevApplications','actions','documents','student','defermentApplication'));
         }catch (\Throwable $throwable){
             dd($throwable);
         }
