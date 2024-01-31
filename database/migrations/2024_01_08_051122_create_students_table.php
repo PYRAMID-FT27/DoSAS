@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('ic')->index();
             $table->string('nationality')->index();
             $table->string('program_code')->index();
+            $table->string('faculty')->index();
             $table->timestamps();
             $table->unique(['nationality','ic']);
         });
