@@ -14,6 +14,7 @@ class Student extends Model
         'ic',
         'nationality',
         'program_code',
+        'faculty',
     ];
 
     public function supervisors(): BelongsToMany

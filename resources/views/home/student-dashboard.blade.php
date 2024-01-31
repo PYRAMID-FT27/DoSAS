@@ -24,6 +24,9 @@
                     <b>Nationality</b>: {{$meta->nationality}}
                 </div>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <b>Faculty</b>: {{$meta->faculty}}
+                </div>
+                <div class="p-6 text-gray-900 dark:text-gray-100">
                     <b>program code</b>: {{$meta->program_code}}
                 </div>
             </div>
