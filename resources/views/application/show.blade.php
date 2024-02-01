@@ -67,7 +67,7 @@
                         <b>type</b>: {{$defermentApplication->type}}
                     </div>
                     <div class="p-6 text-gray-900 capitalize dark:text-gray-100">
-                        <b>Student's deferment balance</b>:<span class="font-bold text-xl text-{{$defermentApplication->applicationApprovedCredit()<=1?'green':'red'}}-800"> {{$defermentApplication->applicationApprovedCredit()}}</span>  / <span class="font-bold text-xl">2</span>
+                        <b>Student's deferment balance</b>:<span class="font-bold text-xl text-{{$defermentApplication->applicationApprovedCredit($student->id)<=1?'green':'red'}}-800"> {{$defermentApplication->applicationApprovedCredit($student->id)}}</span>  / <span class="font-bold text-xl">2</span>
                     </div>
                     @if($defermentApplication->applicationApprovedCredit($student->id))
                         <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
@@ -77,7 +77,7 @@
                             <span class="sr-only">Info</span>
                             <div>
                                 <span class="font-bold">Danger alert!</span><br>
-                                Student <b class="font-bold">{{$student->user->name}}</b> has already utilized {{$defermentApplication->applicationApprovedCredit()}} semesters of deferment. <br>
+                                Student <b class="font-bold">{{$student->user->name}}</b> has already utilized {{$defermentApplication->applicationApprovedCredit($student->id)}} semesters of deferment. <br>
                                 Per university policy, students may submit two deferment applications, each for one semester, with the option to extend each once, totaling up to four semesters. Please ensure compliance with this limit by reviewing the student’s deferment history before approving further requests.                            </div>
                         </div>
                     @endif
