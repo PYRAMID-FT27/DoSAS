@@ -97,7 +97,11 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
     {
         $inputs =  $this->parameterBag['inputs'];
         $user =  $this->parameterBag['user'];
+        $count = (new \App\Models\DefermentApplication())->applicationApprovedCredit($user->student->id);
 
+        if ($inputs['action']=='submit' && $count == config('dosas.max-credit')){
+            throw new \Exception('You have reached your limit of two approved deferment applications.');
+        }
         $defApp = $user->student->applications()->create([
             'status'=> self::ACTION_TYPE[$inputs['action']],
             'submitted_at' =>$inputs['action']=='submit'?now():null,

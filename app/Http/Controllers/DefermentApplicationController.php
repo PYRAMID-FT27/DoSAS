@@ -44,8 +44,8 @@ class DefermentApplicationController extends Controller
             $defermentApplicationService->setParameters(['inputs'=>$request->all(),'user'=>auth()->user()])->createApplication();
             return redirect()->route('defermentApplication.index');
         }catch (\Throwable $throwable){
-            dd($throwable);
             notify()->error($throwable->getMessage());
+            return back();
         }
 
     }
@@ -67,7 +67,8 @@ class DefermentApplicationController extends Controller
             $documents = $defermentApplicationService->output('documents');
             return view('application.show',compact('applicationLogs','prevApplications','actions','documents','student','defermentApplication'));
         }catch (\Throwable $throwable){
-            dd($throwable);
+           notify()->error($throwable->getMessage());
+           return redirect()->route('defermentApplication.index');
         }
     }
 
@@ -95,7 +96,6 @@ class DefermentApplicationController extends Controller
             $defermentApplicationService->setParameters(['inputs'=>$request->all(),'da'=>$defermentApplication,'user'=>auth()->user()])->updateApplications();
             return redirect()->route('defermentApplication.index');
         }catch (\Throwable $throwable){
-            dd($throwable);
            notify()->error($throwable->getMessage());
             return redirect()->route('defermentApplication.index');
         }

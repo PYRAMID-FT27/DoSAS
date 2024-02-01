@@ -119,18 +119,16 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
         return empty($this->submitted_at) || ($this->submitted_at && $this->status =='pending');
     }
 
-    public function applicationApprovedCredit()
+    public function applicationApprovedCredit($id)
     {
-        return $this
-            ->applicationLog()
-            ->whereHas('user', function ($query) {
+        return $this->where('student_id', $id)
+        ->where('id', '!=', $this->id)
+        ->where('status', 'approved')
+        ->whereHas('applicationLog', function ($query) {
+            $query->whereHas('user', function ($query) {
                 $query->where('role', 'staff');
-            })
-            ->whereHas('defermentApplication', function ($query) {
-                $query->whereIn('type', ['personal', 'academic']);
-            })
-            ->where(function ($query) {
-                return $query->where('action_type', 'Approval');
-            })->count();
+            });
+        })->whereIn('type', ['academic', 'personal' ,'medical'])
+          ->count();
     }
 }
