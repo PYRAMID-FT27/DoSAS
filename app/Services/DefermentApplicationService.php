@@ -37,6 +37,7 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
            case 'student':
                $this->output['applications'] = $user->student
                                                     ->applications()
+                                                    ->latest()
                                                     ->paginate(10);
                break;
            case 'faculty':
@@ -176,13 +177,14 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
             });
 
         })->where('status', '!=', 'draft')
+            ->latest()
             ->paginate(10);
     }
     private function fetchStudentApplications()
     {
         return \App\Models\DefermentApplication::whereHas('applicationLog', function ($subQuery) {
             $subQuery->where('action_type', 'Approval');
-        }, '>=', 2)->paginate(10);
+        })->latest()->paginate(10);
 
     }
     public function showDdefermentApplication()
