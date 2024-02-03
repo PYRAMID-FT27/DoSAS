@@ -49,7 +49,7 @@
             <div class="bg-white dark:bg-gray-800 capitalize overflow-hidden shadow-sm sm:rounded-lg">
                 @foreach($meta->load('supervisors')->supervisors()->get() as $item)
                     <div class="p-6 text-gray-900 flex justify-between dark:text-gray-100">
-                        <p class="w-7/12"><b>supervisor</b>:{{$item->title}}.{{$item->load('user')->user->name}}</p>
+                        <p class="w-7/12">{{$item->title}}.{{$item->load('user')->user->name}}</p>
                         <p class="w-fit capitalize">
                             <b>
                                 <div
