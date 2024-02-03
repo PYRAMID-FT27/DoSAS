@@ -5,8 +5,8 @@
     @endpush
     <x-slot name="header">
         <div class="flex justify-between">
-            <h2 class="font-semibold capitalize w-6/12 text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                <nav class="flex" aria-label="Breadcrumb">
+            <h2 class="font-semibold capitalize w-full text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                <nav class="flex justify-between" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                         @if(!auth()->user()->isStudent())
                             <li class="inline-flex items-center">
@@ -52,6 +52,9 @@
                             </div>
                         </li>
                     </ol>
+                    @if(auth()->user()->isStaff())
+                        <a href="" class="uppercase border p-2.5 cursor-pointer rounded-lg border-green-700 block text-right text-green-700 font-medium">export application</a>
+                    @endif
                 </nav>
             </h2>
         </div>
