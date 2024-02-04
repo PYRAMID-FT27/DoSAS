@@ -62,6 +62,7 @@ class User extends Authenticatable
       return  $this->hasOne(Supervisor::class,'user_id');
     }
 
+
     public function meta()
     {
         if ($this->isStudent()) return $this->load('student')->student()->first();

@@ -53,7 +53,7 @@
                         </li>
                     </ol>
                     @if(auth()->user()->isStaff())
-                        <a href="" class="uppercase border p-2.5 cursor-pointer rounded-lg border-green-700 block text-right text-green-700 font-medium">export application</a>
+                        <a href="{{route('export.pdf')}}" class="uppercase border p-2.5 cursor-pointer rounded-lg border-green-700 block text-right text-green-700 font-medium">export application</a>
                     @endif
                 </nav>
             </h2>

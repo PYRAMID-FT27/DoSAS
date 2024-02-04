@@ -32,5 +32,5 @@ Route::middleware('auth:faculty,web,staff')->group(function () {
     Route::get('document/{document}', [DocumentController::class,'download'])->name('document.download');
     Route::delete('document/{document}/delete', [DocumentController::class,'destroy'])->name('document.delete');
 });
-Route::view('/test','pdf.index');
+Route::get('/export/dpf',[\App\Http\Controllers\PdfReportController::class,'__invoke'])->name('export.pdf');
 require __DIR__.'/auth.php';
