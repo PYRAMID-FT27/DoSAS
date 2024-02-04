@@ -61,6 +61,7 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
                     ->where('application_id', $this->id)
                     ->exists();
     }
+
     public function latestChange()
     {
         return $this->applicationLog()->latest()->first();

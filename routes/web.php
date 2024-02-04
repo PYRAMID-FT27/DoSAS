@@ -4,6 +4,7 @@ use App\Http\Controllers\DefermentApplicationController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\Home\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Models\DefermentApplication;
 use App\Models\Document;
 use Illuminate\Support\Facades\Route;
 
@@ -32,5 +33,5 @@ Route::middleware('auth:faculty,web,staff')->group(function () {
     Route::get('document/{document}', [DocumentController::class,'download'])->name('document.download');
     Route::delete('document/{document}/delete', [DocumentController::class,'destroy'])->name('document.delete');
 });
-Route::get('/export/dpf',[\App\Http\Controllers\PdfReportController::class,'__invoke'])->name('export.pdf');
+Route::get('/export/{defermentApplication}/dpf',[\App\Http\Controllers\PdfReportController::class,'__invoke'])->name('export.pdf')->middleware('auth:staff');
 require __DIR__.'/auth.php';

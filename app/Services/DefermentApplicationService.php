@@ -224,4 +224,20 @@ class DefermentApplicationService extends BaseService implements DefermentApplic
                                                                         ->where('id','!=',$defermentApplication->id)
                                                                         ->get();
     }
+    public function export()
+    {
+        $defermentApplication = $this->parameterBag['da'];
+        $student = $defermentApplication->student;
+        $applicationLogs = $defermentApplication->applicationLog()
+            ->orderBy('created_at')
+            ->where('action_type','Approval')
+            ->get();
+        $this->output['applicationLogs'] = $applicationLogs;
+        $this->output['student'] = $student;
+        $this->output['prevApplications'] = $this->applicationRepository->where('student_id',$defermentApplication->student_id)
+            ->where('status','!=','draft')
+            ->where('id','!=',$defermentApplication->id)
+            ->first();
+
+    }
 }

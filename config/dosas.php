@@ -5,7 +5,8 @@ return [
         'academic',
         'personal',
         'medical',
-        'other'
+        'financial',
+        'other',
     ],
     'status'=>[
         'rejected',
