@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Application for Deferment of Study (International Student)</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/base.min.css">
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/base.min.css">
 
     <style>
-
         body {
             font-family: 'Times New Roman', serif; /* Classic and widely used in official documents */
             font-size: 12pt; /* Standard readable size for body text */
