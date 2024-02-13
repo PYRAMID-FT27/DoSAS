@@ -52,7 +52,7 @@
                             </div>
                         </li>
                     </ol>
-                    @if(auth()->user()->isStaff())
+                    @if(auth()->user()->isStaff() && $defermentApplication->isApprovedByCurrentUser())
                         <a href="{{route('export.pdf',$defermentApplication)}}" class="uppercase border p-2.5 cursor-pointer rounded-lg border-green-700 block text-right text-green-700 font-medium">export application</a>
                     @endif
                 </nav>
@@ -79,7 +79,7 @@
                             </svg>
                             <span class="sr-only">Info</span>
                             <div>
-                                <span class="font-bold">Danger alert!</span><br>
+                                <span cla ss="font-bold">Danger alert!</span><br>
                                 Student <b class="font-bold">{{$student->user->name}}</b> has already utilized {{$defermentApplication->applicationApprovedCredit($student->id)}} semesters of deferment. <br>
                                 Per university policy, students may submit two deferment applications, each for one semester, with the option to extend each once, totaling up to four semesters. Please ensure compliance with this limit by reviewing the student’s deferment history before approving further requests.                            </div>
                         </div>

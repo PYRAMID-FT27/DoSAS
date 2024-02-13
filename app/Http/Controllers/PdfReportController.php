@@ -18,7 +18,9 @@ class PdfReportController extends Controller
         $student = $defermentApplicationService->output('student');
         $prevApplication = $defermentApplicationService->output('prevApplications');
         $applicationLogs = $defermentApplicationService->output('applicationLogs');
-        $pdf = Pdf::loadView('pdf.index', compact('defermentApplication','student','applicationLogs','prevApplication'));
+        $html = view('pdf.index', compact('defermentApplication','student','applicationLogs','prevApplication'))->render();
+        $pdf = PDF::loadHTML($html);
+        $pdf->getDomPDF()->set_option('enable_remote', true);
         return $pdf->download('deferment-application.pdf');
     }
 }

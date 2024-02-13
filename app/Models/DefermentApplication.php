@@ -100,6 +100,7 @@ class DefermentApplication extends Model implements DefermentApplicationReposito
        return empty($by)?'':'By '.$by;
     }
 
+
     public function getType()
     {
         switch ($this->type){
