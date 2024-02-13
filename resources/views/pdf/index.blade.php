@@ -39,11 +39,11 @@
     </style>
 </head>
 <body style="width: 85%; margin: auto;">
-<div style="display: flex; border: 1px solid #4B5563; margin-top: 1.25rem; margin-bottom: 1.25rem;">
-    <div style="border-right: 1px solid #4B5563; border-left: 1px solid #4B5563; width: 100%; font-size: 1.875rem; line-height: 2.25rem; padding-top: 4rem; padding-bottom: 4rem; font-weight: bold; text-align: center; display: flex; align-items: center; justify-content: center; border-color: #4B5563;" class=" border-r border-l w-6/12 text-3xl py-16 items-center align-middle font-bold text-center justify-center border-gray-700">
+<div style="display: flex; border: 1px solid #4B5563; margin-top: 1.25rem">
+    <div style="border-right: 1px solid #4B5563; border-left: 1px solid #4B5563; width: 100%; font-size: 1.875rem; line-height: 2.25rem; padding-top: 4rem; font-weight: bold; text-align: center; display: flex; align-items: center; justify-content: center; border-color: #4B5563;" class=" border-r border-l w-6/12 text-3xl py-16 items-center align-middle font-bold text-center justify-center border-gray-700">
         Application for Deferment of Study
     </div>
-    <div style="text-align: left; padding-top: 2.5rem; padding-bottom: 2.5rem; padding-left: 1.25rem; padding-right: 1.25rem; align-items: center;" class="text-left py-10 px-5 align-middle">
+    <div style="text-align: left; padding-top: 2.5rem; padding-bottom: 0.5rem; padding-left: 1.25rem; padding-right: 1.25rem; align-items: center;" class="text-left py-10 px-5 align-middle">
         <div>Form No.: <strong>UTM/AMD/{{$defermentApplication->id}}</strong></div>
         <div>Edition: <strong>3</strong></div>
         <div>Effective Date: <strong>{{$defermentApplication->created_at->format('Y M, d')}}</strong></div>
